@@ -16,3 +16,8 @@ rootProject.name = "MyGithubRepoApp"
 include ':app'
 include ':data'
 include ':core-ui'
+include ':feature-login'
+include ':feature-issue'
+include ':feature-notification'
+include ':feature-repository'
+include ':feature-profile'

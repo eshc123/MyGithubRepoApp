@@ -15,3 +15,4 @@ dependencyResolutionManagement {
 rootProject.name = "MyGithubRepoApp"
 include ':app'
 include ':data'
+include ':core-ui'

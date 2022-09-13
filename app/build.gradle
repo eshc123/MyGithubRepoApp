@@ -1,6 +1,8 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
 }
 
 android {
@@ -32,12 +34,19 @@ android {
 }
 
 dependencies {
+    implementation(project(":core-ui"))
+    implementation(project(":data"))
+    implementation(project(":domain"))
+    implementation(project(":feature-login"))
+    implementation(project(":feature-issue"))
+    implementation(project(":feature-notification"))
+    implementation(project(":feature-profile"))
+    implementation(project(":feature-repository"))
 
-    implementation 'androidx.core:core-ktx:1.7.0'
-    implementation 'androidx.appcompat:appcompat:1.5.0'
-    implementation 'com.google.android.material:material:1.6.1'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+    implementation Google.HILT_ANDROID
+    kapt Google.HILT_ANDROID_COMPILER
+
+    testImplementation UnitTest.JUNIT
+    androidTestImplementation AndroidTest.ANDROID_JUNIT
+    androidTestImplementation AndroidTest.ESPRESSO_CORE
 }

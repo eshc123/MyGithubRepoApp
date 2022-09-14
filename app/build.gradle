@@ -31,6 +31,10 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    buildFeatures {
+        dataBinding = true
+        viewBinding = true
+    }
 }
 
 dependencies {
@@ -42,6 +46,17 @@ dependencies {
     implementation(project(":feature-notification"))
     implementation(project(":feature-profile"))
     implementation(project(":feature-repository"))
+
+    implementation AndroidX.CORE_KTX
+    implementation AndroidX.CONSTRAINT
+    implementation AndroidX.APP_COMPAT
+
+    implementation Google.MATERIAL
+
+    implementation Libraries.RETROFIT
+    implementation Libraries.RETROFIT_CONVERTER_GSON
+    implementation Libraries.OKHTTP
+    implementation Libraries.OKHTTP_LOGGING_INTERCEPTOR
 
     implementation Google.HILT_ANDROID
     kapt Google.HILT_ANDROID_COMPILER

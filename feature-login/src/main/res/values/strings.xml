@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">MyGithubRepoApp</string>
+    <string name="login_button">Login</string>
+</resources>

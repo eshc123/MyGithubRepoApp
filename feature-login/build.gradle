@@ -1,7 +1,11 @@
 plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
 }
+
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
 
 android {
     compileSdk 32
@@ -12,6 +16,8 @@ android {
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
+
+        buildConfigField "String", "githubClientId", properties['GITHUB_CLIENT_ID']
     }
 
     buildTypes {
@@ -29,14 +35,18 @@ android {
     }
     buildFeatures {
         dataBinding = true
+        viewBinding = true
     }
 }
 
 dependencies {
-
+    implementation AndroidX.CORE_KTX
     implementation AndroidX.CONSTRAINT
+    implementation AndroidX.APP_COMPAT
 
     implementation Google.MATERIAL
+
+    implementation Google.HILT_ANDROID
 
     testImplementation UnitTest.JUNIT
     androidTestImplementation AndroidTest.ANDROID_JUNIT

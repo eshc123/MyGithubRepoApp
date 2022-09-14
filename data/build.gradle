@@ -35,6 +35,7 @@ android {
 }
 
 dependencies {
+    implementation(project(":domain"))
 
     implementation Libraries.RETROFIT
     implementation Libraries.RETROFIT_CONVERTER_GSON

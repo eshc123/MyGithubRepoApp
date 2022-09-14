@@ -55,8 +55,11 @@ dependencies {
 
     implementation Libraries.RETROFIT
     implementation Libraries.RETROFIT_CONVERTER_GSON
+    implementation Libraries.RETROFIT_ADAPTER
     implementation Libraries.OKHTTP
     implementation Libraries.OKHTTP_LOGGING_INTERCEPTOR
+    implementation Libraries.RX_JAVA
+    implementation Libraries.RX_ANDROID
 
     implementation Google.HILT_ANDROID
     kapt Google.HILT_ANDROID_COMPILER

@@ -1,5 +1,5 @@
 object Versions {
-    const val CORE_KTX = "1.9.0"
+    const val CORE_KTX = "1.8.0"
     const val APP_COMPAT = "1.5.1"
     const val CONSTRAINT = "2.1.4"
     const val LIFECYCLE_KTX = "2.5.1"
@@ -13,6 +13,7 @@ object Versions {
     const val OKHTTP = "4.10.0"
 
     const val RXJAVA = "3.1.5"
+    const val RXANDROID = "3.0.0"
 
     const val GLIDE = "4.13.2"
 
@@ -47,11 +48,12 @@ object Google {
 object Libraries {
     const val RETROFIT                   = "com.squareup.retrofit2:retrofit:${Versions.RETROFIT}"
     const val RETROFIT_CONVERTER_GSON    = "com.squareup.retrofit2:converter-gson:${Versions.RETROFIT}"
+    const val RETROFIT_ADAPTER           = "com.squareup.retrofit2:adapter-rxjava3:${Versions.RETROFIT}"
     const val OKHTTP                     = "com.squareup.okhttp3:okhttp:${Versions.OKHTTP}"
     const val OKHTTP_LOGGING_INTERCEPTOR = "com.squareup.okhttp3:logging-interceptor:${Versions.OKHTTP}"
     const val GLIDE                      = "com.github.bumptech.glide:glide:${Versions.GLIDE}"
     const val GLIDE_COMPILER             = "com.githib.bumptech.glide:compiler:${Versions.GLIDE}"
-    const val RX_ANDROID                 = "io.reactivex.rxjava3:rxandroid:${Versions.RXJAVA}"
+    const val RX_ANDROID                 = "io.reactivex.rxjava3:rxandroid:${Versions.RXANDROID}"
     const val RX_JAVA                    = "io.reactivex.rxjava3:rxjava:${Versions.RXJAVA}"
 }
 object UnitTest {

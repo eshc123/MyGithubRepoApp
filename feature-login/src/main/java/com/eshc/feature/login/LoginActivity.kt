@@ -22,7 +22,17 @@ class LoginActivity : AppCompatActivity() {
 
         binding?.lifecycleOwner = this
 
-
+        binding?.btLogin?.setOnClickListener {
+            moveToGithubWeb()
+        }
     }
-    
+
+    private fun moveToGithubWeb(){
+        startActivity(
+            Intent(
+                Intent.ACTION_VIEW,
+                GITHUB_AUTH.toUri()
+            )
+        )
+    }
 }

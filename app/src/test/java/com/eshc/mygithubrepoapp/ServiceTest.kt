@@ -1,7 +1,6 @@
 package com.eshc.mygithubrepoapp
 
-import android.util.Log
-import com.eshc.data.AuthService
+import com.eshc.data.source.remote.api.AuthService
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient

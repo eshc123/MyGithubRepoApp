@@ -50,6 +50,9 @@ dependencies {
     implementation AndroidX.CORE_KTX
     implementation AndroidX.CONSTRAINT
     implementation AndroidX.APP_COMPAT
+    implementation AndroidX.PREFERENCE
+    implementation AndroidX.LIFECYCLE_VIEWMODEL_KTX
+
 
     implementation Google.MATERIAL
 

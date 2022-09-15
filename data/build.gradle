@@ -1,6 +1,8 @@
 plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
 }
 Properties properties = new Properties()
 properties.load(project.rootProject.file('local.properties').newDataInputStream())
@@ -37,6 +39,12 @@ android {
 dependencies {
     implementation(project(":domain"))
 
+    implementation AndroidX.PREFERENCE
+    implementation AndroidX.LIFECYCLE_VIEWMODEL_KTX
+
+    implementation Google.HILT_ANDROID
+    kapt Google.HILT_ANDROID_COMPILER
+
     implementation Libraries.RETROFIT
     implementation Libraries.RETROFIT_CONVERTER_GSON
     implementation Libraries.RETROFIT_ADAPTER
@@ -44,6 +52,7 @@ dependencies {
     implementation Libraries.OKHTTP_LOGGING_INTERCEPTOR
     implementation Libraries.RX_JAVA
     implementation Libraries.RX_ANDROID
+
 
     testImplementation UnitTest.JUNIT
     androidTestImplementation AndroidTest.ANDROID_JUNIT

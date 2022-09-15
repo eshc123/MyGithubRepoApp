@@ -2,6 +2,7 @@ plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
 }
 Properties properties = new Properties()
 properties.load(project.rootProject.file('local.properties').newDataInputStream())
@@ -40,6 +41,7 @@ dependencies {
 
     implementation AndroidX.PREFERENCE
     implementation AndroidX.LIFECYCLE_VIEWMODEL_KTX
+
     implementation Google.HILT_ANDROID
     kapt Google.HILT_ANDROID_COMPILER
 

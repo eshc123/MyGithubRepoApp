@@ -1,5 +1,6 @@
 package com.eshc.mygithubrepoapp.di
 
+import com.eshc.data.preference.AuthPreferences
 import com.eshc.data.source.*
 import com.eshc.data.source.remote.*
 import dagger.Binds

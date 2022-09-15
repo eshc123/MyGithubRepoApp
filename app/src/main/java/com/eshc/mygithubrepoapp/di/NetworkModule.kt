@@ -25,23 +25,35 @@ annotation class InterceptorOkHttpClient
 @Retention(AnnotationRetention.BINARY)
 annotation class TokenInterceptorOkHttpClient
 
+@Qualifier
+@Retention(AnnotationRetention.BINARY)
+annotation class AuthRetrofit
+
+@Qualifier
+@Retention(AnnotationRetention.BINARY)
+annotation class GithubRetrofit
+
 @Module
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
 
+    @AuthRetrofit
     @Provides
     @Singleton
     fun provideAuthRetrofit(
         @InterceptorOkHttpClient okHttpClient: OkHttpClient,
-        converter : Converter.Factory
+        converter : Converter.Factory,
+        callAdapter: CallAdapter.Factory
     ) : Retrofit {
         return Retrofit.Builder()
             .client(okHttpClient)
             .baseUrl("https://github.com")
             .addConverterFactory(converter)
+            .addCallAdapterFactory(callAdapter)
             .build()
     }
 
+    @GithubRetrofit
     @Provides
     @Singleton
     fun provideGithubRetrofit(

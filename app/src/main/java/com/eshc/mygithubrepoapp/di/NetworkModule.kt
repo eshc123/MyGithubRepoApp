@@ -1,5 +1,7 @@
 package com.eshc.mygithubrepoapp.di
 
+import com.eshc.data.preference.AuthPreferences
+import com.eshc.data.source.remote.api.TokenInterceptor
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -63,6 +65,14 @@ object NetworkModule {
         return OkHttpClient.Builder()
             .connectTimeout(3,TimeUnit.SECONDS)
             .build()
+    }
+
+    @Provides
+    @Singleton
+    fun provideTokenInterceptor(
+        authPreferences: AuthPreferences
+    ) : TokenInterceptor {
+        return TokenInterceptor(authPreferences)
     }
 
 }

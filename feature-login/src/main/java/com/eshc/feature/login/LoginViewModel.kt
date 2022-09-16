@@ -1,10 +1,9 @@
 package com.eshc.feature.login
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.eshc.domain.usecase.GetAccessTokenUseCase
+import com.eshc.domain.usecase.auth.GetAccessTokenUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers

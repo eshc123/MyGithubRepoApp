@@ -2,12 +2,12 @@ package com.eshc.feature.login
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.net.toUri
 import androidx.databinding.DataBindingUtil
+import com.eshc.feature.home.HomeActivity
 import com.eshc.feature.login.common.GITHUB_AUTH
 import com.eshc.feature.login.databinding.ActivityLoginBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -51,6 +51,7 @@ class LoginActivity : AppCompatActivity() {
     private fun initObserver(){
         viewModel.uiState.observe(this){ loginUiState ->
             if(loginUiState.hasAccessToken) {
+                startActivity(Intent(this, HomeActivity::class.java))
                 finish()
             }
             if(loginUiState.error.isNotEmpty()){

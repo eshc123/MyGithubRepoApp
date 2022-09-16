@@ -1,8 +1,7 @@
-package com.eshc.domain.usecase
+package com.eshc.domain.usecase.auth
 
 import com.eshc.domain.repository.AuthRepository
 import io.reactivex.rxjava3.core.Single
-import io.reactivex.rxjava3.schedulers.Schedulers
 import javax.inject.Inject
 
 class GetAccessTokenUseCase @Inject constructor(

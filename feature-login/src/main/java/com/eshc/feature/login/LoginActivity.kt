@@ -3,6 +3,7 @@ package com.eshc.feature.login
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.net.toUri
@@ -23,12 +24,11 @@ class LoginActivity : AppCompatActivity() {
         _binding = DataBindingUtil.setContentView(
             this,R.layout.activity_login
         )
-
         binding?.lifecycleOwner = this
+        binding?.viewModel = viewModel
 
-        binding?.btLogin?.setOnClickListener {
-            moveToGithubWeb()
-        }
+        initObserver()
+        initView()
     }
 
     override fun onNewIntent(intent: Intent?) {
@@ -46,5 +46,24 @@ class LoginActivity : AppCompatActivity() {
                 GITHUB_AUTH.toUri()
             )
         )
+    }
+
+    private fun initObserver(){
+        viewModel.uiState.observe(this){ loginUiState ->
+            if(loginUiState.hasAccessToken) {
+                finish()
+            }
+            if(loginUiState.error.isNotEmpty()){
+                Toast.makeText(this,loginUiState.error,Toast.LENGTH_SHORT).show()
+                viewModel.updateError()
+            }
+        }
+    }
+
+    private fun initView() {
+        binding?.btLogin?.setOnClickListener {
+            viewModel.updateIsLoading(true)
+            moveToGithubWeb()
+        }
     }
 }

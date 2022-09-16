@@ -37,6 +37,10 @@
                     android:scheme="repo-app" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name="com.eshc.feature.home.HomeActivity"
+            android:exported="false" />
     </application>
 
 </manifest>

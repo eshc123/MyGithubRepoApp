@@ -41,6 +41,7 @@ dependencies {
     implementation(project(":core-ui"))
     implementation(project(":data"))
     implementation(project(":domain"))
+    implementation(project(":feature-home"))
     implementation(project(":feature-login"))
     implementation(project(":feature-issue"))
     implementation(project(":feature-notification"))

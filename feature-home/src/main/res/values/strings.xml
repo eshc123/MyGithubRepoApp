@@ -1,1 +1,9 @@
-<resources></resources>
+<resources>
+    <string name="search">검색</string>
+    <string name="profile">프로필</string>
+
+    <string-array name="main_tab">
+        <item>Issue</item>
+        <item>Notifications</item>
+    </string-array>
+</resources>

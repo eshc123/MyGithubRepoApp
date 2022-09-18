@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -27,9 +28,23 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    buildFeatures {
+        dataBinding = true
+    }
 }
 
 dependencies {
+    implementation(project(":core-design"))
+
+    implementation AndroidX.CORE_KTX
+    implementation AndroidX.CONSTRAINT
+    implementation AndroidX.APP_COMPAT
+
+    implementation Google.MATERIAL
+
+    implementation Libraries.GLIDE
+    annotationProcessor Libraries.GLIDE_COMPILER
+
 
     testImplementation UnitTest.JUNIT
     androidTestImplementation AndroidTest.ANDROID_JUNIT

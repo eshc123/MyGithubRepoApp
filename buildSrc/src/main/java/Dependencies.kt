@@ -55,7 +55,7 @@ object Libraries {
     const val OKHTTP_LOGGING_INTERCEPTOR = "com.squareup.okhttp3:logging-interceptor:${Versions.OKHTTP}"
 
     const val GLIDE                      = "com.github.bumptech.glide:glide:${Versions.GLIDE}"
-    const val GLIDE_COMPILER             = "com.githib.bumptech.glide:compiler:${Versions.GLIDE}"
+    const val GLIDE_COMPILER             = "com.github.bumptech.glide:compiler:${Versions.GLIDE}"
 
     const val RX_ANDROID                 = "io.reactivex.rxjava3:rxandroid:${Versions.RXANDROID}"
     const val RX_JAVA                    = "io.reactivex.rxjava3:rxjava:${Versions.RXJAVA}"

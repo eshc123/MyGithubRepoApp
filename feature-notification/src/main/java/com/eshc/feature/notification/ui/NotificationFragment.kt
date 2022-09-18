@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.eshc.feature.notification.databinding.FragmentNotificationBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -15,6 +17,10 @@ class NotificationFragment : Fragment() {
     private val binding get() = _binding
 
     private val viewModel : NotificationViewModel by viewModels()
+
+    private val notificationAdapter : NotificationAdapter by lazy {
+        NotificationAdapter()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,6 +37,15 @@ class NotificationFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding?.lifecycleOwner = viewLifecycleOwner
+
+        binding?.let {
+            initRecyclerView(it.notificationRecyclerView)
+        }
+    }
+
+    private fun initRecyclerView(recyclerView: RecyclerView) {
+        recyclerView.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false)
+        recyclerView.adapter = notificationAdapter
 
     }
 }

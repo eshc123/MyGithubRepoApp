@@ -22,6 +22,7 @@
             android:layout_height="@dimen/size_24"
             android:layout_marginStart="@dimen/margin_26"
             android:layout_marginTop="@dimen/margin_16"
+            app:iconImage="@{notification.imageUrl}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -42,7 +43,7 @@
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:text="@{notification.repo.fullName}"
+                android:text="@{notification.repoFullName}"
                 android:textColor="@color/gray"
                 app:layout_constrainedWidth="true"
                 app:layout_constraintEnd_toStartOf="@id/tv_issue"
@@ -83,9 +84,9 @@
             android:layout_marginTop="@dimen/margin_20"
             android:layout_marginEnd="@dimen/margin_24"
             android:textColor="@color/gray"
+            android:text="@{notification.updatedAt}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:updatedText="@{notification.updatedAt}"
             tools:text="1일 전" />
 
         <androidx.cardview.widget.CardView

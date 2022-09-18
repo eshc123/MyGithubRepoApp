@@ -11,8 +11,6 @@
         android:id="@+id/notification_recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:listitem="@layout/item_notification" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

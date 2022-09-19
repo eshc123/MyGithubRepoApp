@@ -1,7 +1,7 @@
 package com.eshc.data.source.remote.api
 
 import com.eshc.data.BuildConfig
-import com.eshc.data.model.AccessToken
+import com.eshc.data.model.AccessTokenEntity
 import io.reactivex.rxjava3.core.Single
 import retrofit2.Response
 import retrofit2.http.Field
@@ -18,5 +18,5 @@ interface AuthService {
         @Field("client_id") clientId: String = BuildConfig.githubClientId,
         @Field("client_secret") clientSecret: String = BuildConfig.githubClientSecret,
         @Field("code") code: String
-    ) : Single<Response<AccessToken>>
+    ) : Single<Response<AccessTokenEntity>>
 }

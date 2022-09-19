@@ -70,6 +70,7 @@ dependencies {
     kapt Google.HILT_ANDROID_COMPILER
 
     testImplementation UnitTest.JUNIT
+    testImplementation UnitTest.ROBOLECTRIC
     androidTestImplementation AndroidTest.ANDROID_JUNIT
     androidTestImplementation AndroidTest.ESPRESSO_CORE
 }

@@ -1,4 +1,4 @@
-package com.eshc.mygithubrepoapp
+package com.eshc.mygithubrepoapp.service
 
 import com.eshc.data.source.remote.api.AuthService
 import com.google.gson.Gson
@@ -10,7 +10,7 @@ import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
-class ServiceTest {
+class AuthServiceTest {
 
     private val gson: Gson = GsonBuilder()
         .setLenient()

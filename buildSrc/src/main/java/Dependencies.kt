@@ -22,6 +22,7 @@ object Versions {
     const val JUNIT = "4.13.2"
     const val ANDROID_JUNIT = "1.1.3"
     const val ESPRESSO_CORE = "3.4.0"
+    const val ROBOLECTRIC = "4.8.2"
 }
 
 object AndroidX {
@@ -62,6 +63,7 @@ object Libraries {
 }
 object UnitTest {
     const val JUNIT         = "junit:junit:${Versions.JUNIT}"
+    const val ROBOLECTRIC   = "org.robolectric:robolectric:${Versions.ROBOLECTRIC}"
 }
 
 object AndroidTest {

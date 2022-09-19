@@ -48,4 +48,9 @@ class NotificationFragment : Fragment() {
         recyclerView.adapter = notificationAdapter
 
     }
+
+    override fun onDestroyView() {
+        _binding = null
+        super.onDestroyView()
+    }
 }

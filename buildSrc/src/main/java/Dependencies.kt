@@ -39,9 +39,9 @@ object AndroidX {
     const val PREFERENCE              = "androidx.preference:preference-ktx:${Versions.PREFERENCE_KTX}"
     const val CONSTRAINT              = "androidx.constraintlayout:constraintlayout:${Versions.CONSTRAINT}"
 
-    const val PAGING_KTX              = "androidx.paging:paging-runtime-ktx:3.1.1:${Versions.PAGING}"
+    const val PAGING                  = "androidx.paging:paging-runtime:${Versions.PAGING}"
     const val PAGING_RXJAVA           = "androidx.paging:paging-rxjava3:${Versions.PAGING}"
-    const val PAGING_COMMON           = "androidx.paging:paging-common-ktx:${Versions.PAGING}"
+    const val PAGING_COMMON           = "androidx.paging:paging-common:${Versions.PAGING}"
 }
 
 object Google {

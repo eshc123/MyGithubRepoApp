@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.eshc.feature.notification.databinding.FragmentNotificationBinding
+import com.eshc.feature.notification.ui.adapter.NotificationAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

@@ -6,6 +6,7 @@ object Versions {
     const val ACTIVITY_KTX = "1.5.1"
     const val FRAGMENT_KTX = "1.5.2"
     const val PREFERENCE_KTX = "1.2.0"
+    const val PAGING = "3.1.1"
 
     const val MATERIAL = "1.6.1"
 
@@ -37,6 +38,10 @@ object AndroidX {
 
     const val PREFERENCE              = "androidx.preference:preference-ktx:${Versions.PREFERENCE_KTX}"
     const val CONSTRAINT              = "androidx.constraintlayout:constraintlayout:${Versions.CONSTRAINT}"
+
+    const val PAGING_KTX              = "androidx.paging:paging-runtime-ktx:3.1.1:${Versions.PAGING}"
+    const val PAGING_RXJAVA           = "androidx.paging:paging-rxjava3:${Versions.PAGING}"
+    const val PAGING_COMMON           = "androidx.paging:paging-common-ktx:${Versions.PAGING}"
 }
 
 object Google {

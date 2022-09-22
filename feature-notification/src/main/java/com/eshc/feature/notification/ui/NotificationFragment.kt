@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.eshc.feature.notification.databinding.FragmentNotificationBinding
@@ -47,7 +48,9 @@ class NotificationFragment : Fragment() {
     private fun initRecyclerView(recyclerView: RecyclerView) {
         recyclerView.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false)
         recyclerView.adapter = notificationAdapter
-
+        ItemTouchHelper(NotificationItemHelper(requireContext()){
+            //TODO
+        }).attachToRecyclerView(recyclerView)
     }
 
     override fun onDestroyView() {

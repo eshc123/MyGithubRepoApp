@@ -2,13 +2,14 @@ package com.eshc.feature.notification.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.eshc.feature.notification.databinding.ItemNotificationBinding
 import com.eshc.feature.notification.model.NotificationModel
 
-class NotificationAdapter : ListAdapter<NotificationModel, NotificationAdapter.NotificationViewHolder>(
+class NotificationAdapter : PagingDataAdapter<NotificationModel, NotificationAdapter.NotificationViewHolder>(
     NotificationDiffCallback()
 ) {
 
@@ -23,7 +24,9 @@ class NotificationAdapter : ListAdapter<NotificationModel, NotificationAdapter.N
     }
 
     override fun onBindViewHolder(holder: NotificationViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        getItem(position)?.let {
+            holder.bind(it)
+        }
     }
 
     class NotificationViewHolder(val binding: ItemNotificationBinding) :

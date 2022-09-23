@@ -15,12 +15,13 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class NotificationFragment : Fragment() {
-    private var _binding : FragmentNotificationBinding? = null
+
+    private var _binding: FragmentNotificationBinding? = null
     private val binding get() = _binding
 
-    private val viewModel : NotificationViewModel by viewModels()
+    private val viewModel: NotificationViewModel by viewModels()
 
-    private val notificationAdapter : NotificationAdapter by lazy {
+    private val notificationAdapter: NotificationAdapter by lazy {
         NotificationAdapter()
     }
 
@@ -30,7 +31,7 @@ class NotificationFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentNotificationBinding.inflate(
-            inflater,container,false
+            inflater, container, false
         )
         return binding?.root
     }
@@ -43,14 +44,25 @@ class NotificationFragment : Fragment() {
         binding?.let {
             initRecyclerView(it.notificationRecyclerView)
         }
+
+        viewModel.getNotifications()
+
+        initObserver()
     }
 
     private fun initRecyclerView(recyclerView: RecyclerView) {
-        recyclerView.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false)
+        recyclerView.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         recyclerView.adapter = notificationAdapter
-        ItemTouchHelper(NotificationItemHelper(requireContext()){
+        ItemTouchHelper(NotificationItemHelper(requireContext()) {
             //TODO
         }).attachToRecyclerView(recyclerView)
+    }
+
+    private fun initObserver() {
+        viewModel.notifications.observe(viewLifecycleOwner) {
+            notificationAdapter.submitData(lifecycle,it)
+        }
     }
 
     override fun onDestroyView() {

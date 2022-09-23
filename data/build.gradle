@@ -52,6 +52,8 @@ dependencies {
     implementation Libraries.OKHTTP_LOGGING_INTERCEPTOR
     implementation Libraries.RX_JAVA
     implementation Libraries.RX_ANDROID
+    implementation AndroidX.PAGING
+    implementation AndroidX.PAGING_RXJAVA
 
 
     testImplementation UnitTest.JUNIT

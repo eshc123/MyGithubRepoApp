@@ -11,4 +11,5 @@ java {
 dependencies {
     implementation Google.HILT_CORE
     implementation Libraries.RX_JAVA
+    implementation AndroidX.PAGING_COMMON
 }

@@ -46,6 +46,8 @@ dependencies {
     implementation AndroidX.LIFECYCLE_VIEWMODEL_KTX
     implementation AndroidX.FRAGMENT_KTX
     implementation AndroidX.ACTIVITY_KTX
+    implementation AndroidX.PAGING
+    implementation AndroidX.PAGING_RXJAVA
 
     implementation Google.MATERIAL
 

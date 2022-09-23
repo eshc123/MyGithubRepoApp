@@ -13,3 +13,14 @@ data class NotificationEntity(
     @SerializedName("url") val url : String
 )
 
+fun NotificationEntity.toNotification() : Notification {
+    return Notification(
+        id = id,
+        repo = repository.toRepo(),
+        updatedAt = updatedAt,
+        unread = unread,
+        comments = 0,
+        issueNum = 0,
+    )
+}
+

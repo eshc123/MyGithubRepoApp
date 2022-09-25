@@ -1,0 +1,4 @@
+<resources>
+    <string name="profile_repository">Repositories</string>
+    <string name="profile_starred">Starred</string>
+</resources>

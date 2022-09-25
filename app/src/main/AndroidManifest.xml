@@ -41,6 +41,9 @@
         <activity
             android:name="com.eshc.feature.home.HomeActivity"
             android:exported="false" />
+        <activity
+            android:name="com.eshc.feature.profile.ProfileActivity"
+            android:exported="false" />
     </application>
 
 </manifest>

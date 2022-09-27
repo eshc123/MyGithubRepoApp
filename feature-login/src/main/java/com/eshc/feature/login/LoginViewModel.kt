@@ -28,7 +28,7 @@ class LoginViewModel @Inject constructor(
                 } else {
                     updateHasAccessToken(false)
                     updateIsLoading(false)
-                    updateError(error.message.toString())
+                    updateError(error.message ?: "")
                 }
         }
     }

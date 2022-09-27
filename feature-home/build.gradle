@@ -38,6 +38,8 @@ android {
 dependencies {
     implementation(project(":domain"))
     implementation(project(":core-design"))
+    implementation(project(":feature-profile"))
+    implementation(project(":feature-notification"))
 
     implementation AndroidX.CORE_KTX
     implementation AndroidX.CONSTRAINT

@@ -8,18 +8,27 @@ import javax.inject.Inject
 
 class UserRepositoryImpl @Inject constructor(
     private val userDataSource: UserDataSource
-) : UserRepository{
+) : UserRepository {
+    private var user: User? = null
+
     override fun getUser(): Single<Result<User>> {
-        return try {
-            userDataSource.getUser()
-                .map {
-                    Result.success(it.getOrThrow())
-                }
-                .onErrorReturn {
-                    Result.failure(it.cause ?: Throwable())
-                }
-        } catch (e : Exception) {
-            Single.create {
+        try {
+            return if (user == null)
+                userDataSource.getUser()
+                    .map {
+                        it.getOrThrow().run {
+                            user = this
+                            Result.success(this)
+                        }
+                    }
+                    .onErrorReturn {
+                        Result.failure(it.cause ?: Throwable())
+                    }
+            else Single.just (
+                Result.success(user ?: User())
+            )
+        } catch (e: Exception) {
+            return Single.create {
                 Result.failure<String>(e)
             }
         }

@@ -1,6 +1,7 @@
 package com.eshc.feature.home
 
 import android.content.Intent
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.Menu
 import android.widget.FrameLayout
@@ -8,6 +9,10 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.commit
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CircleCrop
+import com.bumptech.glide.request.target.CustomTarget
+import com.bumptech.glide.request.transition.Transition
 import com.eshc.feature.home.databinding.ActivityHomeBinding
 import com.eshc.feature.notification.ui.NotificationFragment
 import com.eshc.feature.profile.ProfileActivity
@@ -31,6 +36,11 @@ class HomeActivity : AppCompatActivity() , TabLayout.OnTabSelectedListener{
 
         binding?.lifecycleOwner = this
 
+        initViews()
+        initObserver()
+    }
+
+    private fun initViews(){
         binding?.let {
             initTabLayout(it.tlHome)
             initContainer(it.flHome)
@@ -70,6 +80,14 @@ class HomeActivity : AppCompatActivity() , TabLayout.OnTabSelectedListener{
         }
     }
 
+    private fun initObserver(){
+        viewModel.uiState.observe(this) {
+            if(it.userImage.isNotBlank()){
+                invalidateOptionsMenu()
+            }
+        }
+    }
+
     private fun startProfileActivity(){
         startActivity(
             Intent(
@@ -95,5 +113,25 @@ class HomeActivity : AppCompatActivity() , TabLayout.OnTabSelectedListener{
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.toolbar_menu, menu)
         return true
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
+        val url = viewModel.uiState.value?.userImage
+
+        Glide.with(this).asDrawable().load(url).transform(CircleCrop())
+            .into(object : CustomTarget<Drawable>() {
+                override fun onResourceReady(
+                    resource: Drawable,
+                    transition: Transition<in Drawable>?
+                ) {
+                    menu?.findItem(R.id.nav_profile)?.let {
+                        it.icon = resource
+                    }
+                }
+
+                override fun onLoadCleared(placeholder: Drawable?) {
+                }
+            })
+        return super.onPrepareOptionsMenu(menu)
     }
 }

@@ -6,3 +6,4 @@ https://github.com/woowa-techcamp-2022/android-repo-06 프로젝트를 RxJava �
 - Android App Architecture
 - RxJava
 - Dagger-Hilt
+- Paging3

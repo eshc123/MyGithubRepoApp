@@ -55,6 +55,8 @@ dependencies {
 
     implementation Libraries.RX_JAVA
     implementation Libraries.RX_ANDROID
+    implementation Libraries.GLIDE
+    annotationProcessor Libraries.GLIDE_COMPILER
 
     testImplementation UnitTest.JUNIT
     androidTestImplementation AndroidTest.ANDROID_JUNIT

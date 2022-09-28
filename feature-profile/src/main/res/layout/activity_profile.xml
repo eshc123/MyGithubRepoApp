@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="viewModel"
+            type="com.eshc.feature.profile.ProfileViewModel" />
 
     </data>
 
@@ -46,6 +48,7 @@
                     android:layout_height="@dimen/size_80"
                     android:layout_marginStart="@dimen/margin_24"
                     android:layout_marginTop="@dimen/margin_24"
+                    app:iconImage="@{viewModel.uiState.user.avatarUrl}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -57,6 +60,7 @@
                     android:layout_marginTop="@dimen/margin_26"
                     android:textColor="@color/white"
                     android:textSize="@dimen/text_size_18"
+                    android:text="@{viewModel.uiState.user.login}"
                     app:layout_constraintStart_toEndOf="@id/iv_profile"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -67,6 +71,7 @@
                     android:layout_marginStart="@dimen/margin_16"
                     android:textColor="@color/gray"
                     android:textSize="@dimen/text_size_16"
+                    android:text="@{viewModel.uiState.user.name}"
                     app:layout_constraintStart_toEndOf="@id/iv_profile"
                     app:layout_constraintTop_toBottomOf="@id/tv_login" />
 
@@ -83,6 +88,7 @@
                     android:paddingEnd="@dimen/padding_8"
                     android:paddingBottom="@dimen/padding_4"
                     android:textColor="@color/gray"
+                    android:text="@{viewModel.uiState.user.bio}"
                     app:layout_constraintStart_toEndOf="@id/iv_profile"
                     app:layout_constraintTop_toBottomOf="@id/tv_name" />
 
@@ -106,6 +112,7 @@
                     android:gravity="center_vertical"
                     android:textColor="@color/white"
                     android:textSize="@dimen/text_size_14"
+                    android:text="@{viewModel.uiState.user.location}"
                     app:drawableStartCompat="@drawable/ic_location"
                     app:drawableTint="@color/gray"
                     app:layout_constraintStart_toStartOf="parent"
@@ -121,6 +128,7 @@
                     android:gravity="center_vertical"
                     android:textColor="@color/white"
                     android:textSize="@dimen/text_size_14"
+                    android:text="@{viewModel.uiState.user.blog}"
                     app:drawableStartCompat="@drawable/ic_link"
                     app:drawableTint="@color/gray"
                     app:layout_constraintStart_toStartOf="parent"
@@ -136,6 +144,7 @@
                     android:gravity="center_vertical"
                     android:textColor="@color/white"
                     android:textSize="@dimen/text_size_14"
+                    android:text="@{viewModel.uiState.user.email}"
                     app:drawableStartCompat="@drawable/ic_mail"
                     app:drawableTint="@color/gray"
                     app:layout_constraintStart_toStartOf="parent"
@@ -152,13 +161,14 @@
                     android:gravity="center_vertical"
                     android:textColor="@color/white"
                     android:textSize="@dimen/text_size_14"
+                    android:text="@{@string/profile_follow(viewModel.uiState.user.followers,viewModel.uiState.user.following)}"
                     app:drawableStartCompat="@drawable/ic_user"
                     app:drawableTint="@color/gray"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_email" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/cl_repo_start"
+                    android:id="@+id/cl_repo_star"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/size_128"
                     android:layout_marginHorizontal="@dimen/margin_24"
@@ -226,6 +236,7 @@
                         android:gravity="center_vertical"
                         android:textColor="@color/white"
                         android:textSize="@dimen/text_size_14"
+                        android:text="@{String.valueOf(viewModel.uiState.user.publicRepos)}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@id/ib_repository" />
 

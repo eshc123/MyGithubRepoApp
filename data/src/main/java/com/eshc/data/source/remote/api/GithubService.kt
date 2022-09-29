@@ -1,6 +1,7 @@
 package com.eshc.data.source.remote.api
 
 import com.eshc.data.model.NotificationEntity
+import com.eshc.data.model.StarredEntity
 import com.eshc.data.model.UserEntity
 import io.reactivex.rxjava3.core.Single
 import retrofit2.Response
@@ -18,5 +19,6 @@ interface GithubService {
         @Query("page") page: Int
     ): Single<Response<List<NotificationEntity>>>
 
-
+    @GET("/user/starred")
+    fun getStarredRepos(): Single<Response<List<StarredEntity>>>
 }

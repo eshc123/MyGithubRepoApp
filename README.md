@@ -1,4 +1,4 @@
-## MyGithubRepoAppRx
+## MyGithubRepoApp
 
 https://github.com/woowa-techcamp-2022/android-repo-06 프로젝트를 여러 기술을 사용하여 재구현
 

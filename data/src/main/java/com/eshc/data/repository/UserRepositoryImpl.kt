@@ -23,7 +23,7 @@ class UserRepositoryImpl @Inject constructor(
                         }
                     }
                     .onErrorReturn {
-                        Result.failure(it.cause ?: Throwable())
+                        Result.failure(it)
                     }
             else Single.just (
                 Result.success(user ?: User())
@@ -48,7 +48,7 @@ class UserRepositoryImpl @Inject constructor(
                         }
                     }
                     .onErrorReturn {
-                        Result.failure(it.cause ?: Throwable())
+                        Result.failure(it)
                     }
             } else Single.just(
                 Result.success(user?.starred ?: 0)

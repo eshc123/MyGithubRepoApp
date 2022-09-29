@@ -15,12 +15,12 @@ class AuthRepositoryImpl @Inject constructor(
                     Result.success(it.getOrThrow())
                 }
                 .onErrorReturn {
-                    Result.failure(it.cause ?: Throwable())
+                    Result.failure(it)
                 }
         } catch (e : Exception) {
-            Single.create {
-                Result.failure<String>(e)
-            }
+            Single.just(
+                Result.failure(e)
+            )
         }
     }
 }

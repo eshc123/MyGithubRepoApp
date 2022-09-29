@@ -15,7 +15,7 @@ class GetUserProfileUseCase @Inject constructor(
                     Result.success(it.getOrThrow())
                 }
                 .onErrorReturn {
-                    Result.failure(it.cause ?: Throwable())
+                    Result.failure(it)
                 }
         } catch (e : Exception) {
             Single.create {

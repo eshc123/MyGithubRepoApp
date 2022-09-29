@@ -20,7 +20,7 @@ class GetUserWithStarredCountUseCase  @Inject constructor(
                     )
                 }
                 .onErrorReturn {
-                    Result.failure(it.cause ?: Throwable())
+                    Result.failure(it)
                 }
         } catch (e : Exception) {
             Single.create {

@@ -16,7 +16,7 @@ class UserDataSourceImpl @Inject constructor(
                 Result.success(it.body()?.toUser() ?: User())
             }
             .onErrorReturn {
-                Result.failure(it.cause ?: Throwable("User Error"))
+                Result.failure(it)
             }
     }
 
@@ -26,7 +26,7 @@ class UserDataSourceImpl @Inject constructor(
                 Result.success(it.body()?.size ?: 0)
             }
             .onErrorReturn {
-                Result.failure(it.cause ?: Throwable("Starred Error"))
+                Result.failure(it)
             }
     }
 }

@@ -18,16 +18,15 @@ class AuthDataSourceImpl @Inject constructor(
         return authService.getAccessToken(code = code)
             .map {
                 val accessToken = it.body()?.accessToken
-                if(accessToken != null) {
+                if(it.isSuccessful && accessToken != null) {
                     authPreferences.accessToken = accessToken
                     Result.success(it.body()?.accessToken ?: "")
                 } else {
-                    Result.failure(Throwable("Token Error"))
+                    Result.failure(Throwable("Can't Get Access Token"))
                 }
-
             }
             .onErrorReturn {
-                Result.failure(it.cause ?: Throwable("Token Error"))
+                Result.failure(it)
             }
     }
 }

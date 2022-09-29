@@ -1,5 +1,6 @@
 package com.eshc.data.repository
 
+import android.view.View
 import com.eshc.data.source.UserDataSource
 import com.eshc.domain.model.User
 import com.eshc.domain.repository.UserRepository
@@ -36,15 +37,22 @@ class UserRepositoryImpl @Inject constructor(
 
     override fun getStarred(): Single<Result<Int>> {
         try {
-            return userDataSource.getUserStarred()
-                .map {
-                    it.getOrThrow().run {
-                        Result.success(this)
+            return if(user?.starred == null) {
+                userDataSource.getUserStarred()
+                    .map {
+                        it.getOrThrow().run {
+                            user = user?.copy(
+                                starred = this
+                            )
+                            Result.success(this)
+                        }
                     }
-                }
-                .onErrorReturn {
-                    Result.failure(it.cause ?: Throwable())
-                }
+                    .onErrorReturn {
+                        Result.failure(it.cause ?: Throwable())
+                    }
+            } else Single.just(
+                Result.success(user?.starred ?: 0)
+            )
         } catch (e: Exception) {
             return Single.create {
                 Result.failure<String>(e)

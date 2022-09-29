@@ -19,6 +19,17 @@ data class UserModel(
 
 fun User.toUserModel() : UserModel {
     return UserModel(
-        id, login, avatarUrl, name, blog, location, email, bio, publicRepos, followers, following,starred
+        id = id,
+        login = login,
+        avatarUrl = avatarUrl,
+        name = name,
+        blog = blog,
+        location = location,
+        email = email,
+        bio = bio,
+        publicRepos = publicRepos,
+        followers = followers,
+        following = following,
+        starred = starred ?: 0
     )
 }

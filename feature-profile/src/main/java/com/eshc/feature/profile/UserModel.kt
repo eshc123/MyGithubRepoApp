@@ -14,10 +14,11 @@ data class UserModel(
     val publicRepos : Int,
     val followers : Int,
     val following : Int,
+    val starred : Int
 )
 
 fun User.toUserModel() : UserModel {
     return UserModel(
-        id, login, avatarUrl, name, blog, location, email, bio, publicRepos, followers, following
+        id, login, avatarUrl, name, blog, location, email, bio, publicRepos, followers, following,starred
     )
 }

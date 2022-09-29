@@ -248,6 +248,7 @@
                         android:gravity="center_vertical"
                         android:textColor="@color/white"
                         android:textSize="@dimen/text_size_14"
+                        android:text="@{String.valueOf(viewModel.uiState.user.starred)}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@id/ib_starred" />
                 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,6 +2,7 @@ package com.eshc.feature.profile
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import com.eshc.feature.profile.databinding.ActivityProfileBinding
@@ -21,6 +22,17 @@ class ProfileActivity : AppCompatActivity() {
         )
         binding?.lifecycleOwner = this
         binding?.viewModel = viewModel
+
         viewModel.getUser()
+
+        initObserver()
+    }
+
+    private fun initObserver() {
+        viewModel.uiState.observe(this) {
+            if(it.error.isNotBlank()){
+                Toast.makeText(this,it.error,Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 }

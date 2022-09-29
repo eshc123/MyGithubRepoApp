@@ -19,4 +19,14 @@ class UserDataSourceImpl @Inject constructor(
                 Result.failure(it.cause ?: Throwable("User Error"))
             }
     }
+
+    override fun getUserStarred(): Single<Result<Int>> {
+        return githubService.getStarredRepos()
+            .map {
+                Result.success(it.body()?.size ?: 0)
+            }
+            .onErrorReturn {
+                Result.failure(it.cause ?: Throwable("Starred Error"))
+            }
+    }
 }

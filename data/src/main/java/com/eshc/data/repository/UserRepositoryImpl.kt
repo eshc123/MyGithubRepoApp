@@ -33,4 +33,22 @@ class UserRepositoryImpl @Inject constructor(
             }
         }
     }
+
+    override fun getStarred(): Single<Result<Int>> {
+        try {
+            return userDataSource.getUserStarred()
+                .map {
+                    it.getOrThrow().run {
+                        Result.success(this)
+                    }
+                }
+                .onErrorReturn {
+                    Result.failure(it.cause ?: Throwable())
+                }
+        } catch (e: Exception) {
+            return Single.create {
+                Result.failure<String>(e)
+            }
+        }
+    }
 }

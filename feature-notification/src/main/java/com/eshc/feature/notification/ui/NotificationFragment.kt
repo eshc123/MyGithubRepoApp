@@ -1,6 +1,7 @@
 package com.eshc.feature.notification.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +11,7 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.eshc.feature.notification.databinding.FragmentNotificationBinding
+import com.eshc.feature.notification.model.NotificationModel
 import com.eshc.feature.notification.ui.adapter.NotificationAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -54,8 +56,8 @@ class NotificationFragment : Fragment() {
         recyclerView.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         recyclerView.adapter = notificationAdapter
-        ItemTouchHelper(NotificationItemHelper(requireContext()) { id ->
-            removeNotification(id)
+        ItemTouchHelper(NotificationItemHelper(requireContext()) { notification ->
+            removeNotification(notification)
         }).attachToRecyclerView(recyclerView)
     }
 
@@ -65,9 +67,16 @@ class NotificationFragment : Fragment() {
         }
     }
 
-    private fun removeNotification(id : String) {
-        viewModel.removeNotification(id)
+    private fun removeNotification(notification: NotificationModel) {
+        viewModel.removeNotification(notification)
+    }
 
+    override fun onStop() {
+        if(viewModel.isEmptyNotificationsToBeRemoved.not()) {
+            viewModel.removeAllNotifications()
+            binding?.notificationRecyclerView?.smoothScrollToPosition(0)
+        }
+        super.onStop()
     }
 
     override fun onDestroyView() {

@@ -9,6 +9,7 @@ import androidx.paging.filter
 import androidx.paging.map
 import androidx.paging.rxjava3.cachedIn
 import com.eshc.domain.usecase.notification.GetNotificationsUseCase
+import com.eshc.domain.usecase.notification.UpdateNotificationsAsReadUseCase
 import com.eshc.feature.notification.model.NotificationModel
 import com.eshc.feature.notification.model.toNotificationModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -21,12 +22,17 @@ import javax.inject.Inject
 
 @HiltViewModel
 class NotificationViewModel @Inject constructor(
-    private val getNotificationsUseCase: GetNotificationsUseCase
+    private val getNotificationsUseCase: GetNotificationsUseCase,
+    private val updateNotificationsAsReadUseCase: UpdateNotificationsAsReadUseCase
 ) : ViewModel() {
     private val compositeDisposable = CompositeDisposable()
 
     private val _notifications = MutableLiveData<PagingData<NotificationModel>>()
     val notifications: LiveData<PagingData<NotificationModel>> get() = _notifications
+
+    private val notificationsToBeRemoved : MutableList<NotificationModel> = mutableListOf()
+    val isEmptyNotificationsToBeRemoved : Boolean
+        get() = notificationsToBeRemoved.isEmpty()
 
     private fun addDisposable(disposable: Disposable) {
         compositeDisposable.add(disposable)
@@ -39,7 +45,7 @@ class NotificationViewModel @Inject constructor(
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .map {
-                    it.map { notification ->
+                        it.map { notification ->
                         notification.toNotificationModel()
                     }
                 }.cachedIn(viewModelScope)
@@ -49,9 +55,22 @@ class NotificationViewModel @Inject constructor(
         )
     }
 
-    fun removeNotification(id : String) {
+    fun removeNotification(notification: NotificationModel) {
         _notifications.value = _notifications.value?.filter {
-            it.id != id
+            it.id != notification.id
+        }
+        notificationsToBeRemoved.add(notification)
+    }
+
+    fun removeAllNotifications() {
+        if(isEmptyNotificationsToBeRemoved.not()) {
+            updateNotificationsAsReadUseCase(
+                notificationsToBeRemoved.map {
+                    it.id
+                }
+            )
+            notificationsToBeRemoved.clear()
+            getNotifications()
         }
     }
 

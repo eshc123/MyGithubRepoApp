@@ -19,6 +19,7 @@ fun NotificationEntity.toNotification() : Notification {
         repo = repository.toRepo(),
         title = subject.title,
         updatedAt = updatedAt,
+        threadId = url.split("/").last(),
         unread = unread,
         imageUrl = repository.owner.avatarUrl,
         comments = 0,

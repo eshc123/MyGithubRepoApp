@@ -15,9 +15,9 @@ data class NotificationModel(
 fun Notification.toNotificationModel() : NotificationModel {
     return NotificationModel(
         id = id,
-        title = repo.name,
+        title = title,
         repoFullName = repo.fullName,
-        imageUrl = "",
+        imageUrl = imageUrl,
         updatedAt = updatedAt,
         comments = comments.toString(),
         issueNum = issueNum.toString()

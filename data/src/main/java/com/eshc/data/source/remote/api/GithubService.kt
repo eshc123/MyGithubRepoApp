@@ -6,6 +6,8 @@ import com.eshc.data.model.UserEntity
 import io.reactivex.rxjava3.core.Single
 import retrofit2.Response
 import retrofit2.http.GET
+import retrofit2.http.PATCH
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface GithubService {
@@ -21,4 +23,9 @@ interface GithubService {
 
     @GET("/user/starred")
     fun getStarredRepos(): Single<Response<List<StarredEntity>>>
+
+    @PATCH("/notifications/threads/{thread_id}")
+    fun patchNotificationThread(
+        @Path("thread_id") threadId: String
+    ): Single<Response<Unit>>
 }

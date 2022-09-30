@@ -7,7 +7,7 @@ import io.reactivex.rxjava3.core.Flowable
 import javax.inject.Inject
 
 class GetNotificationsUseCase @Inject constructor(
-    val notificationRepository: NotificationRepository
+    private val notificationRepository: NotificationRepository
 ) {
     operator fun invoke() : Flowable<PagingData<Notification>> {
         return notificationRepository.getNotifications()

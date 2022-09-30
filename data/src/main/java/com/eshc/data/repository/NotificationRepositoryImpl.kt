@@ -1,32 +1,20 @@
 package com.eshc.data.repository
 
-import android.util.Log
-import androidx.paging.Pager
-import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import androidx.paging.rxjava3.flowable
-import com.eshc.data.source.remote.NotificationPagingSource
+import com.eshc.data.source.NotificationDataSource
 import com.eshc.domain.model.Notification
 import com.eshc.domain.repository.NotificationRepository
 import io.reactivex.rxjava3.core.Flowable
-import io.reactivex.rxjava3.core.Single
 import javax.inject.Inject
 
 class NotificationRepositoryImpl @Inject constructor(
-    private val notificationPagingSource: NotificationPagingSource
+    private val notificationDataSource : NotificationDataSource
 ) : NotificationRepository {
     override fun getNotifications(): Flowable<PagingData<Notification>> {
-        return Pager(
-            config = PagingConfig(
-                pageSize = 10
-            ),
-            pagingSourceFactory = {
-                notificationPagingSource
-            }
-        ).flowable
+        return notificationDataSource.getNotifications()
     }
 
-    override fun updateNotificationAsRead() {
-        TODO("Not yet implemented")
+    override fun updateNotificationAsRead(id : String) {
+        notificationDataSource.updateNotificationAsRead(id)
     }
 }

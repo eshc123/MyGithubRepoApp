@@ -6,6 +6,7 @@ data class Notification(
     val title : String,
     val updatedAt : String,
     val unread : Boolean,
+    val threadId : String,
     val imageUrl : String,
     val comments: Int,
     val issueNum : Int

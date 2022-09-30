@@ -8,6 +8,7 @@ data class NotificationModel(
     val repoFullName : String,
     val imageUrl : String,
     val updatedAt : String,
+    val threadId : String,
     val comments : String,
     val issueNum : String
 )
@@ -15,10 +16,11 @@ data class NotificationModel(
 fun Notification.toNotificationModel() : NotificationModel {
     return NotificationModel(
         id = id,
-        title = repo.name,
+        title = title,
         repoFullName = repo.fullName,
-        imageUrl = "",
+        imageUrl = imageUrl,
         updatedAt = updatedAt,
+        threadId = threadId,
         comments = comments.toString(),
         issueNum = issueNum.toString()
     )

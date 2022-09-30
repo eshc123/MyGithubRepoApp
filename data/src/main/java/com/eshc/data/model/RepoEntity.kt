@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName
 data class RepoEntity(
     @SerializedName("id") val id : Int,
     @SerializedName("name") val name : String,
-    //@SerializedName("owner") val owner : RepoOwner,
+    @SerializedName("owner") val owner : UserEntity,
     @SerializedName("description") val description : String,
     @SerializedName("stargazers_count") val stargazersCount : Int,
     @SerializedName("language") val language : String? = null,
@@ -18,6 +18,7 @@ fun RepoEntity.toRepo() : Repo {
         id = id,
         name = name,
         description = description,
+        owner = owner.toUser(),
         stargazersCount = 0,
         language = language ?: "",
         fullName = fullName

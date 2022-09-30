@@ -1,8 +1,7 @@
-package com.eshc.data.source.remote
+package com.eshc.data.source.remote.paging
 
 import androidx.paging.PagingState
 import androidx.paging.rxjava3.RxPagingSource
-import com.eshc.data.model.NotificationEntity
 import com.eshc.data.model.toNotification
 import com.eshc.data.source.remote.api.GithubService
 import com.eshc.domain.model.Notification

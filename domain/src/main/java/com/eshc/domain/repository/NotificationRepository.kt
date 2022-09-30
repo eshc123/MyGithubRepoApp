@@ -8,5 +8,5 @@ import io.reactivex.rxjava3.core.Single
 interface NotificationRepository {
     fun getNotifications() : Flowable<PagingData<Notification>>
 
-    fun updateNotificationAsRead()
+    fun updateNotificationAsRead(id : String)
 }

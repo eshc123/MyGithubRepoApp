@@ -8,12 +8,13 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.eshc.core.design.R
+import com.eshc.feature.notification.model.NotificationModel
 import com.eshc.feature.notification.ui.adapter.NotificationAdapter
 import kotlin.math.roundToInt
 
 class NotificationItemHelper(
     private val context : Context,
-    private val onSwipe : () -> Unit
+    private val onSwipe : (NotificationModel) -> Unit
 ) : ItemTouchHelper.Callback() {
     override fun getMovementFlags(
         recyclerView: RecyclerView,
@@ -33,7 +34,7 @@ class NotificationItemHelper(
     override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
         val notificationViewHolder = viewHolder as NotificationAdapter.NotificationViewHolder
         notificationViewHolder.binding.notification?.let {
-            onSwipe()
+            onSwipe(it)
         }
     }
 

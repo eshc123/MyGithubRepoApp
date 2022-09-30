@@ -13,7 +13,7 @@ import kotlin.math.roundToInt
 
 class NotificationItemHelper(
     private val context : Context,
-    private val onSwipe : () -> Unit
+    private val onSwipe : (String) -> Unit
 ) : ItemTouchHelper.Callback() {
     override fun getMovementFlags(
         recyclerView: RecyclerView,
@@ -33,7 +33,7 @@ class NotificationItemHelper(
     override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
         val notificationViewHolder = viewHolder as NotificationAdapter.NotificationViewHolder
         notificationViewHolder.binding.notification?.let {
-            onSwipe()
+            onSwipe(it.id)
         }
     }
 

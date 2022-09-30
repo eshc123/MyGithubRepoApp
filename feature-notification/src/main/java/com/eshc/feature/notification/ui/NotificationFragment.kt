@@ -54,8 +54,8 @@ class NotificationFragment : Fragment() {
         recyclerView.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         recyclerView.adapter = notificationAdapter
-        ItemTouchHelper(NotificationItemHelper(requireContext()) {
-            //TODO
+        ItemTouchHelper(NotificationItemHelper(requireContext()) { id ->
+            removeNotification(id)
         }).attachToRecyclerView(recyclerView)
     }
 
@@ -63,6 +63,11 @@ class NotificationFragment : Fragment() {
         viewModel.notifications.observe(viewLifecycleOwner) {
             notificationAdapter.submitData(lifecycle,it)
         }
+    }
+
+    private fun removeNotification(id : String) {
+        viewModel.removeNotification(id)
+
     }
 
     override fun onDestroyView() {

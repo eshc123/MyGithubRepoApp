@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
+import androidx.paging.filter
 import androidx.paging.map
 import androidx.paging.rxjava3.cachedIn
 import com.eshc.domain.usecase.notification.GetNotificationsUseCase
@@ -46,6 +47,12 @@ class NotificationViewModel @Inject constructor(
                     _notifications.value = it
                 }
         )
+    }
+
+    fun removeNotification(id : String) {
+        _notifications.value = _notifications.value?.filter {
+            it.id != id
+        }
     }
 
     override fun onCleared() {

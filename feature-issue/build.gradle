@@ -1,6 +1,8 @@
 plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
 }
 
 android {
@@ -27,10 +29,37 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    buildFeatures {
+        dataBinding = true
+        viewBinding = true
+    }
 }
 
 dependencies {
+    implementation(project(":domain"))
+    implementation(project(":core-ui"))
+    implementation(project(":core-design"))
 
+    implementation AndroidX.CORE_KTX
+    implementation AndroidX.CONSTRAINT
+    implementation AndroidX.APP_COMPAT
+    implementation AndroidX.LIFECYCLE_VIEWMODEL_KTX
+    implementation AndroidX.FRAGMENT_KTX
+    implementation AndroidX.ACTIVITY_KTX
+    implementation AndroidX.PAGING
+    implementation AndroidX.PAGING_RXJAVA
+
+    implementation Google.MATERIAL
+
+    implementation Google.HILT_ANDROID
+    kapt Google.HILT_ANDROID_COMPILER
+
+    implementation Libraries.RX_JAVA
+    implementation Libraries.RX_ANDROID
+
+    testImplementation UnitTest.JUNIT
+    androidTestImplementation AndroidTest.ANDROID_JUNIT
+    androidTestImplementation AndroidTest.ESPRESSO_CORE
 
     testImplementation UnitTest.JUNIT
     androidTestImplementation AndroidTest.ANDROID_JUNIT

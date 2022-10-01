@@ -13,25 +13,25 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor(
     private val getUserProfileUseCase: GetUserProfileUseCase
 ) : ViewModel() {
-    private val _uiState = MutableLiveData(HomeUiState())
-    val uiState : LiveData<HomeUiState>
-        get() = _uiState
+    private val _homeTabState = MutableLiveData(HomeTab.Issue)
+    val homeTabState : LiveData<HomeTab>
+        get() = _homeTabState
+
+    private val _homeUserImageState = MutableLiveData("")
+    val homeUserImageState : LiveData<String>
+        get() = _homeUserImageState
 
     init {
-        if(uiState.value?.userImage.isNullOrBlank())
+        if(homeUserImageState.value.isNullOrBlank())
             getUser()
     }
 
     fun updateSelectedTab(tabName : String) {
-        _uiState.value = uiState.value?.copy(
-            selectedTab = HomeTab.valueOf(tabName)
-        )
+        _homeTabState.value = HomeTab.valueOf(tabName)
     }
 
     private fun updateUserImage(imageUrl : String) {
-        _uiState.value = uiState.value?.copy(
-            userImage = imageUrl
-        )
+        _homeUserImageState.value = imageUrl
     }
 
     private fun getUser() {

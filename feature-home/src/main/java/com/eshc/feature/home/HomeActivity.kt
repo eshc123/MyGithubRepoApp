@@ -8,12 +8,14 @@ import android.widget.FrameLayout
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
 import com.eshc.feature.home.databinding.ActivityHomeBinding
+import com.eshc.feature.issue.IssueFragment
 import com.eshc.feature.notification.ui.NotificationFragment
 import com.eshc.feature.profile.ProfileActivity
 import com.google.android.material.appbar.MaterialToolbar
@@ -70,29 +72,57 @@ class HomeActivity : AppCompatActivity() , TabLayout.OnTabSelectedListener{
     }
 
     private fun initObserver(){
-        viewModel.uiState.observe(this) { homeUiState ->
-            if(homeUiState.userImage.isNotBlank()){
+        viewModel.homeTabState.observe(this){ tab ->
+            showFragment(tab)
+        }
+
+        viewModel.homeUserImageState.observe(this){ imageUrl ->
+            if(imageUrl.isNotBlank()){
                 invalidateOptionsMenu()
             }
-
-            when(homeUiState.selectedTab){
-                HomeTab.Issue -> changeToIssue()
-                HomeTab.Notification -> changeToNotification()
-            }
         }
     }
 
-    private fun changeToIssue() {
-
-    }
-
-    private fun changeToNotification() {
-        binding?.flHome?.let{
+    private fun showFragment(homeTab: HomeTab) {
+        val targetFragment = supportFragmentManager.findFragmentByTag(getFragmentTag(homeTab))
+        if(targetFragment == null) {
             supportFragmentManager.commit {
-                replace(it.id,NotificationFragment())
+                binding?.flHome?.let {
+                    add(it.id,getFragment(homeTab),getFragmentTag(homeTab))
+                }
+            }
+        } else {
+            supportFragmentManager.findFragmentByTag(getFragmentTag(homeTab))?.let { fragment ->
+                supportFragmentManager.commit {
+                    show(fragment)
+                }
             }
         }
     }
+
+    private fun hideFragment(homeTab: HomeTab?) {
+        supportFragmentManager.findFragmentByTag(getFragmentTag(homeTab))?.let { fragment ->
+            supportFragmentManager.commit {
+                hide(fragment)
+            }
+        }
+    }
+
+    private fun getFragment(homeTab: HomeTab) : Fragment {
+        return when(homeTab) {
+            HomeTab.Issue -> IssueFragment()
+            HomeTab.Notification -> NotificationFragment()
+        }
+    }
+
+    private fun getFragmentTag(homeTab: HomeTab?) : String {
+        return when(homeTab) {
+            HomeTab.Issue -> IssueFragment.TAG
+            HomeTab.Notification -> NotificationFragment.TAG
+            else -> IssueFragment.TAG
+        }
+    }
+
 
     private fun startProfileActivity(){
         startActivity(
@@ -107,6 +137,7 @@ class HomeActivity : AppCompatActivity() , TabLayout.OnTabSelectedListener{
     }
 
     override fun onTabSelected(tab: TabLayout.Tab?) {
+        hideFragment(viewModel.homeTabState.value)
         viewModel.updateSelectedTab(tab?.text.toString())
     }
 
@@ -118,12 +149,7 @@ class HomeActivity : AppCompatActivity() , TabLayout.OnTabSelectedListener{
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.toolbar_menu, menu)
-        return true
-    }
-
-    override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
-        val url = viewModel.uiState.value?.userImage
-
+        val url = viewModel.homeUserImageState.value
         Glide.with(this).asDrawable().load(url).transform(CircleCrop())
             .into(object : CustomTarget<Drawable>() {
                 override fun onResourceReady(
@@ -138,6 +164,6 @@ class HomeActivity : AppCompatActivity() , TabLayout.OnTabSelectedListener{
                 override fun onLoadCleared(placeholder: Drawable?) {
                 }
             })
-        return super.onPrepareOptionsMenu(menu)
+        return true
     }
 }

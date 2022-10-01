@@ -83,4 +83,8 @@ class NotificationFragment : Fragment() {
         _binding = null
         super.onDestroyView()
     }
+
+    companion object {
+        val TAG = this.toString()
+    }
 }

@@ -92,10 +92,8 @@ class HomeActivity : AppCompatActivity() , TabLayout.OnTabSelectedListener{
                 }
             }
         } else {
-            supportFragmentManager.findFragmentByTag(getFragmentTag(homeTab))?.let { fragment ->
-                supportFragmentManager.commit {
-                    show(fragment)
-                }
+            supportFragmentManager.commit {
+                show(targetFragment)
             }
         }
     }

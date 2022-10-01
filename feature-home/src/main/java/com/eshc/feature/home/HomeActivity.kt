@@ -43,7 +43,6 @@ class HomeActivity : AppCompatActivity() , TabLayout.OnTabSelectedListener{
     private fun initViews(){
         binding?.let {
             initTabLayout(it.tlHome)
-            initContainer(it.flHome)
             initToolbar(it.tbHome)
         }
     }
@@ -56,10 +55,6 @@ class HomeActivity : AppCompatActivity() , TabLayout.OnTabSelectedListener{
         tabLayout.addOnTabSelectedListener(this)
         tabLayout.selectTab(tabLayout.getTabAt(-1))
 
-        when(viewModel.uiState.value?.selectedTab) {
-            HomeTab.Issue -> tabLayout.selectTab(tabLayout.getTabAt(HomeTab.values().indexOf(HomeTab.Issue)))
-            HomeTab.Notification -> tabLayout.selectTab(tabLayout.getTabAt(HomeTab.values().indexOf(HomeTab.Notification)))
-        }
     }
 
     private fun initToolbar(toolbar: MaterialToolbar){
@@ -74,16 +69,27 @@ class HomeActivity : AppCompatActivity() , TabLayout.OnTabSelectedListener{
         }
     }
 
-    private fun initContainer(frameLayout: FrameLayout){
-        supportFragmentManager.commit {
-            replace(frameLayout.id,NotificationFragment())
+    private fun initObserver(){
+        viewModel.uiState.observe(this) { homeUiState ->
+            if(homeUiState.userImage.isNotBlank()){
+                invalidateOptionsMenu()
+            }
+
+            when(homeUiState.selectedTab){
+                HomeTab.Issue -> changeToIssue()
+                HomeTab.Notification -> changeToNotification()
+            }
         }
     }
 
-    private fun initObserver(){
-        viewModel.uiState.observe(this) {
-            if(it.userImage.isNotBlank()){
-                invalidateOptionsMenu()
+    private fun changeToIssue() {
+
+    }
+
+    private fun changeToNotification() {
+        binding?.flHome?.let{
+            supportFragmentManager.commit {
+                replace(it.id,NotificationFragment())
             }
         }
     }

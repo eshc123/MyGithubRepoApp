@@ -39,7 +39,6 @@
             android:layout_height="wrap_content"
             android:textColor="@color/gray"
             android:textSize="@dimen/text_size_14"
-            app:updatedText="@{issue.updatedAt}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/iv_state" />
 

@@ -20,10 +20,17 @@ class FilterSpinner(
 
     init {
         initView()
+        initClickListener()
     }
 
     fun setSpinnerAdapter(adapter: BaseAdapter){
         binding?.spFilter?.adapter = adapter
+    }
+
+    private fun initClickListener(){
+        binding?.clFilter?.setOnClickListener {
+            binding?.spFilter?.performClick()
+        }
     }
 
     private fun initView(){

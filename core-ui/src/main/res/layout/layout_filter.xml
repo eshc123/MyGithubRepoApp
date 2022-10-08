@@ -26,7 +26,7 @@
             android:layout_width="@dimen/size_150"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
-            android:dropDownVerticalOffset="@dimen/offset_70"
+            android:dropDownVerticalOffset="@dimen/offset_50"
             android:popupBackground="@drawable/bg_rect_navy_14_border"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

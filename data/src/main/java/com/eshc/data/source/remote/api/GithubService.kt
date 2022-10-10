@@ -1,5 +1,6 @@
 package com.eshc.data.source.remote.api
 
+import com.eshc.data.model.IssueEntity
 import com.eshc.data.model.NotificationEntity
 import com.eshc.data.model.StarredEntity
 import com.eshc.data.model.UserEntity
@@ -28,4 +29,13 @@ interface GithubService {
     fun patchNotificationThread(
         @Path("thread_id") threadId: String
     ): Single<Response<Unit>>
+
+    @GET("/issues")
+    fun getIssues(
+        @Query("filter") filter: String = "all",
+        @Query("state") state: String,
+        @Query("per_page") perPage: Int = 10, //default = 30
+        @Query("page") page: Int,
+        @Query("sort") sort: String = "updated" //default = "created"
+    ): Single<Response<List<IssueEntity>>>
 }

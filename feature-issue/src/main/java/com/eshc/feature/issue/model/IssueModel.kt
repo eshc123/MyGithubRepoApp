@@ -1,5 +1,6 @@
 package com.eshc.feature.issue.model
 
+import com.eshc.domain.model.Issue
 import com.eshc.domain.model.Repo
 
 data class IssueModel(
@@ -10,3 +11,14 @@ data class IssueModel(
     val updatedAt : String,
     val isOpen : Boolean
 )
+
+fun Issue.toIssueModel() : IssueModel {
+    return IssueModel(
+        id = id,
+        repo = repo,
+        state = state.name,
+        title = title,
+        updatedAt = updatedAt,
+        isOpen = false
+    )
+}

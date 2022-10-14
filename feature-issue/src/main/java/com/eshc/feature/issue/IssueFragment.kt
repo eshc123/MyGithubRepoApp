@@ -50,12 +50,22 @@ class IssueFragment : Fragment() {
             initRecyclerView(it.rvIssue)
             initSpinner(it.spFilter)
         }
+
+        viewModel.getIssues()
+
+        initObserver()
     }
 
     private fun initRecyclerView(recyclerView: RecyclerView) {
         recyclerView.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         recyclerView.adapter = issueAdapter
+    }
+
+    private fun initObserver() {
+        viewModel.issues.observe(viewLifecycleOwner){
+            issueAdapter.submitData(lifecycle,it)
+        }
     }
 
     private fun initSpinner(spinner: FilterSpinner) {

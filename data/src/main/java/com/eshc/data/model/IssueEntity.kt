@@ -1,7 +1,6 @@
 package com.eshc.data.model
 
 import com.eshc.domain.model.Issue
-import com.eshc.domain.model.IssueFilter
 import com.eshc.domain.model.IssueState
 import com.google.gson.annotations.SerializedName
 

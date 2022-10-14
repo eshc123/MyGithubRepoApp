@@ -7,7 +7,7 @@ data class RepoEntity(
     @SerializedName("id") val id : Int,
     @SerializedName("name") val name : String,
     @SerializedName("owner") val owner : UserEntity,
-    @SerializedName("description") val description : String,
+    @SerializedName("description") val description : String?,
     @SerializedName("stargazers_count") val stargazersCount : Int,
     @SerializedName("language") val language : String? = null,
     @SerializedName("full_name") val fullName : String
@@ -17,7 +17,7 @@ fun RepoEntity.toRepo() : Repo {
     return Repo(
         id = id,
         name = name,
-        description = description,
+        description = description ?: "",
         owner = owner.toUser(),
         stargazersCount = 0,
         language = language ?: "",

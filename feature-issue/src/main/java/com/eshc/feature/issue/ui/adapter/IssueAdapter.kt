@@ -1,4 +1,4 @@
-package com.eshc.feature.issue
+package com.eshc.feature.issue.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

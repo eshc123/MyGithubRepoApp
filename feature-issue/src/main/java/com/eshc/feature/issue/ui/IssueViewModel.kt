@@ -1,4 +1,4 @@
-package com.eshc.feature.issue
+package com.eshc.feature.issue.ui
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

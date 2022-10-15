@@ -8,8 +8,8 @@
         <import type="android.view.View" />
 
         <variable
-            name="issueOption"
-            type="com.eshc.feature.issue.model.IssueOptionModel" />
+            name="issueState"
+            type="com.eshc.domain.model.IssueState" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -21,7 +21,8 @@
             android:id="@+id/tv_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@{issueOption.text}"
+            app:firstCap="@{issueState.name()}"
+            android:text=""
             android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -33,7 +34,6 @@
             android:layout_height="wrap_content"
             android:src="@drawable/ic_check"
             android:tint="@color/white"
-            android:visibility="@{issueOption.check? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

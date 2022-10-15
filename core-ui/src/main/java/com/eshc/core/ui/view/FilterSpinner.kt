@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.AdapterView
 import android.widget.BaseAdapter
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
@@ -16,11 +17,24 @@ class FilterSpinner(
 
     //var adapter : BaseAdapter? = null
     private var _binding : LayoutFilterBinding? = null
-    val binding get() = _binding
+    private val binding get() = _binding
 
     init {
         initView()
         initClickListener()
+    }
+
+    fun setOnItemSelectedListener(onItemSelected : (Int) -> Unit, onNothingSelected : () -> Unit) {
+        binding?.spFilter?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                onItemSelected(p2)
+            }
+
+            override fun onNothingSelected(p0: AdapterView<*>?) {
+                onNothingSelected()
+            }
+
+        }
     }
 
     fun setSpinnerAdapter(adapter: BaseAdapter){

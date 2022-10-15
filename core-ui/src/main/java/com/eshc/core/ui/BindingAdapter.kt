@@ -1,6 +1,7 @@
 package com.eshc.core.ui
 
 import androidx.appcompat.widget.AppCompatImageView
+import androidx.appcompat.widget.AppCompatTextView
 import androidx.databinding.BindingAdapter
 import com.eshc.core.design.R
 import com.bumptech.glide.Glide
@@ -25,4 +26,10 @@ fun AppCompatImageView.setIconImage(resource : String){
                 .into(this)
         }
     }
+}
+
+@BindingAdapter("firstCap")
+fun AppCompatTextView.setFirstCap(resource: String){
+    text = if(resource.isBlank()) resource
+    else resource.substring(0, 1).uppercase() + resource.substring(1)
 }

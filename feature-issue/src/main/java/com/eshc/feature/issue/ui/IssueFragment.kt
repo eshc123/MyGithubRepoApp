@@ -1,18 +1,18 @@
-package com.eshc.feature.issue
+package com.eshc.feature.issue.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.widget.AppCompatSpinner
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.eshc.core.ui.view.FilterSpinner
+import com.eshc.domain.model.IssueState
 import com.eshc.feature.issue.databinding.FragmentIssueBinding
-import com.eshc.feature.issue.model.IssueOptionModel
+import com.eshc.feature.issue.ui.adapter.FilterSpinnerAdapter
+import com.eshc.feature.issue.ui.adapter.IssueAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -27,7 +27,10 @@ class IssueFragment : Fragment() {
     }
 
     private val filterSpinnerAdapter : FilterSpinnerAdapter by lazy {
-        FilterSpinnerAdapter(requireContext(),listOf(IssueOptionModel("Open",true),IssueOptionModel("Close",false)))
+        FilterSpinnerAdapter(
+            context = requireContext(),
+            items = IssueState.values().toList()
+        )
     }
 
     override fun onCreateView(
@@ -70,6 +73,18 @@ class IssueFragment : Fragment() {
 
     private fun initSpinner(spinner: FilterSpinner) {
         spinner.setSpinnerAdapter(filterSpinnerAdapter)
+        spinner.setOnItemSelectedListener(
+            onItemSelected = {
+                IssueState.values()[it].also {
+                    filterSpinnerAdapter.selectItem(it)
+                }.also {
+                    viewModel.setIssueState(it)
+                }
+            },
+            onNothingSelected = {
+
+            }
+        )
     }
 
     override fun onDestroyView() {
@@ -81,3 +96,4 @@ class IssueFragment : Fragment() {
         val TAG = this.toString()
     }
 }
+

@@ -4,7 +4,6 @@ import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.Menu
-import android.widget.FrameLayout
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -15,7 +14,7 @@ import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
 import com.eshc.feature.home.databinding.ActivityHomeBinding
-import com.eshc.feature.issue.IssueFragment
+import com.eshc.feature.issue.ui.IssueFragment
 import com.eshc.feature.notification.ui.NotificationFragment
 import com.eshc.feature.profile.ProfileActivity
 import com.google.android.material.appbar.MaterialToolbar

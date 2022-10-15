@@ -29,6 +29,10 @@ class IssueViewModel @Inject constructor(
     private val _issues = MutableLiveData<PagingData<IssueModel>>()
     val issues: LiveData<PagingData<IssueModel>> get() = _issues
 
+    private val _issueState = MutableLiveData<IssueState>()
+    val issueState : LiveData<IssueState> get() = _issueState
+
+
     private fun addDisposable(disposable: Disposable) {
         compositeDisposable.add(disposable)
     }
@@ -50,6 +54,10 @@ class IssueViewModel @Inject constructor(
                     _issues.value = it
                 }
         )
+    }
+
+    fun setIssueState(state : IssueState){
+        _issueState.value = state
     }
 
     override fun onCleared() {

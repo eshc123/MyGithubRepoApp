@@ -24,6 +24,18 @@ class FilterSpinner(
         initClickListener()
     }
 
+    fun setOnItemSelectedListener(onItemSelected : (Int) -> Unit) {
+        binding?.spFilter?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                onItemSelected(p2)
+            }
+
+            override fun onNothingSelected(p0: AdapterView<*>?) {
+
+            }
+        }
+    }
+
     fun setOnItemSelectedListener(onItemSelected : (Int) -> Unit, onNothingSelected : () -> Unit) {
         binding?.spFilter?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
@@ -33,7 +45,6 @@ class FilterSpinner(
             override fun onNothingSelected(p0: AdapterView<*>?) {
                 onNothingSelected()
             }
-
         }
     }
 

@@ -1,6 +1,7 @@
 package com.eshc.feature.issue.model
 
 import com.eshc.domain.model.Issue
+import com.eshc.domain.model.IssueState
 import com.eshc.domain.model.Repo
 
 data class IssueModel(
@@ -19,6 +20,6 @@ fun Issue.toIssueModel() : IssueModel {
         state = state.name,
         title = title,
         updatedAt = updatedAt,
-        isOpen = false
+        isOpen = state == IssueState.open
     )
 }

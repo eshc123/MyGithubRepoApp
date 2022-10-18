@@ -38,9 +38,9 @@ class IssueViewModel @Inject constructor(
     }
 
     @OptIn(ExperimentalCoroutinesApi::class)
-    fun getIssues(){
+    fun getIssues(state : IssueState){
         addDisposable(
-            getIssuesUseCase(state = IssueState.all)
+            getIssuesUseCase(state = state)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .map {

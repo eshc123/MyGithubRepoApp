@@ -18,6 +18,7 @@
             android:layout_width="@dimen/size_18"
             android:layout_height="@dimen/size_18"
             android:layout_marginTop="@dimen/margin_16"
+            android:tint="@{issue.isOpen? @color/yellow : @color/purple}"
             android:src="@{issue.isOpen? @drawable/ic_issue_open : @drawable/ic_issue_closed}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

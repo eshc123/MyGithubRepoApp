@@ -54,8 +54,6 @@ class IssueFragment : Fragment() {
             initSpinner(it.spFilter)
         }
 
-        viewModel.getIssues()
-
         initObserver()
     }
 
@@ -69,20 +67,20 @@ class IssueFragment : Fragment() {
         viewModel.issues.observe(viewLifecycleOwner){
             issueAdapter.submitData(lifecycle,it)
         }
+
+        viewModel.issueState.observe(viewLifecycleOwner) {
+            filterSpinnerAdapter.selectItem(it)
+            viewModel.getIssues(it)
+        }
     }
 
     private fun initSpinner(spinner: FilterSpinner) {
         spinner.setSpinnerAdapter(filterSpinnerAdapter)
         spinner.setOnItemSelectedListener(
             onItemSelected = {
-                IssueState.values()[it].also {
-                    filterSpinnerAdapter.selectItem(it)
-                }.also {
-                    viewModel.setIssueState(it)
+                IssueState.values()[it].also { state ->
+                    viewModel.setIssueState(state)
                 }
-            },
-            onNothingSelected = {
-
             }
         )
     }

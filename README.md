@@ -1,6 +1,6 @@
 ## MyGithubRepoApp
 
-https://github.com/woowa-techcamp-2022/android-repo-06 프로젝트를 여러 기술을 사용하여 재구현
+Github API를 활용한 Github Repo APp
 
 ### 사용기술
 - Android App Architecture

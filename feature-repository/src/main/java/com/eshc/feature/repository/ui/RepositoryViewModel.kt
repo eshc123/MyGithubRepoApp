@@ -1,4 +1,4 @@
-package com.eshc.feature.repository
+package com.eshc.feature.repository.ui
 
 import androidx.lifecycle.ViewModel
 

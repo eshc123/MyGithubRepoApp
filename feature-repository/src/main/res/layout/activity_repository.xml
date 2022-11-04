@@ -5,7 +5,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.eshc.feature.repository.RepositoryViewModel" />
+            type="com.eshc.feature.repository.ui.RepositoryViewModel" />
 
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout

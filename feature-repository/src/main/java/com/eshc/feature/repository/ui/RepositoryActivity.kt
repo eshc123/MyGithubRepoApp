@@ -1,9 +1,10 @@
-package com.eshc.feature.repository
+package com.eshc.feature.repository.ui
 
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import com.eshc.feature.repository.R
 import com.eshc.feature.repository.databinding.ActivityRepositoryBinding
 
 class RepositoryActivity : AppCompatActivity() {
@@ -15,7 +16,7 @@ class RepositoryActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = DataBindingUtil.setContentView(
-            this,R.layout.activity_repository
+            this, R.layout.activity_repository
         )
         binding?.lifecycleOwner = this
         binding?.viewModel = viewModel

@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="issue_filter">Filter</string>
+
+    <string name="repository_title">Search</string>
+    <string name="repository_hint">검색어를 입력해주세요.</string>
 </resources>

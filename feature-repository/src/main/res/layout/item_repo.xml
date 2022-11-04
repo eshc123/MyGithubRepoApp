@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="repo"
+            type="com.eshc.feature.repository.model.RepoModel" />
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/background">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_avatar"
+            android:layout_width="@dimen/size_24"
+            android:layout_height="@dimen/size_24"
+            android:src="@drawable/ic_user"
+            app:iconImage="@{repo.owner.avatarUrl}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_login"
+            android:layout_width="@dimen/size_0"
+            android:layout_height="@dimen/size_24"
+            android:layout_marginStart="@dimen/margin_8"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:singleLine="true"
+            android:text="@{repo.owner.login,default=JetBrains}"
+            android:textColor="@color/gray"
+            android:textSize="@dimen/text_size_14"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/iv_avatar"
+            app:layout_constraintTop_toTopOf="@id/iv_avatar" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_name"
+            android:layout_width="@dimen/size_0"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_8"
+            android:text="@{repo.name ,default=Kotlin}"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_14"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/tv_login"
+            app:layout_constraintTop_toBottomOf="@id/tv_login" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_description"
+            android:layout_width="@dimen/size_0"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="3"
+            android:text="@{repo.description,default=TheKotlinProgrammingLanguage}"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_14"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/tv_login"
+            app:layout_constraintTop_toBottomOf="@id/tv_name" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_star"
+            android:layout_width="@dimen/size_18"
+            android:layout_height="@dimen/size_18"
+            android:layout_marginTop="@dimen/margin_10"
+            android:background="@drawable/ic_star_outline"
+            android:backgroundTint="@color/yellow"
+            app:layout_constraintStart_toStartOf="@id/tv_login"
+            app:layout_constraintTop_toBottomOf="@id/tv_description" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_star"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_4"
+            android:gravity="center_vertical"
+            android:text="@{repo.starCnt}"
+            android:textColor="@color/gray"
+            android:textSize="@dimen/text_size_14"
+            app:layout_constraintStart_toEndOf="@id/iv_star"
+            app:layout_constraintTop_toTopOf="@id/iv_star" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_language"
+            android:layout_width="@dimen/size_14"
+            android:layout_height="@dimen/size_14"
+            android:layout_marginStart="@dimen/margin_14"
+            android:background="@drawable/shape_circle"
+            app:tintColor="@{repo.languageColor}"
+            app:layout_constraintBottom_toBottomOf="@id/iv_star"
+            app:layout_constraintStart_toEndOf="@id/tv_star"
+            app:layout_constraintTop_toTopOf="@id/iv_star" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_language"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_4"
+            android:gravity="center_vertical"
+            android:text="@{repo.language,default=Kotlin}"
+            android:textColor="@color/gray"
+            android:textSize="@dimen/text_size_14"
+            app:layout_constraintStart_toEndOf="@id/iv_language"
+            app:layout_constraintTop_toTopOf="@id/iv_star" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/size_1"
+            android:layout_marginTop="@dimen/margin_20"
+            android:background="@color/navy"
+            app:layout_constraintTop_toBottomOf="@id/iv_star" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

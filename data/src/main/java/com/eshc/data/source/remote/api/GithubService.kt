@@ -1,9 +1,7 @@
 package com.eshc.data.source.remote.api
 
-import com.eshc.data.model.IssueEntity
-import com.eshc.data.model.NotificationEntity
-import com.eshc.data.model.StarredEntity
-import com.eshc.data.model.UserEntity
+import com.eshc.data.model.*
+import com.eshc.data.model.response.RepoResponse
 import io.reactivex.rxjava3.core.Single
 import retrofit2.Response
 import retrofit2.http.GET
@@ -38,4 +36,13 @@ interface GithubService {
         @Query("page") page: Int,
         @Query("sort") sort: String = "updated" //default = "created"
     ): Single<Response<List<IssueEntity>>>
+
+    @GET("/search/repositories")
+    fun getRepositories(
+        @Query("q") searchText: String,
+        @Query("sort") sort: String = "start",
+        @Query("order") order: String = "desc",
+        @Query("per_page") perPage: Int = 10,
+        @Query("page") page: Int
+    ): Single<Response<RepoResponse>>
 }

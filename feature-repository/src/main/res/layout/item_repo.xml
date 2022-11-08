@@ -90,7 +90,7 @@
             android:layout_height="@dimen/size_14"
             android:layout_marginStart="@dimen/margin_14"
             android:background="@drawable/shape_circle"
-            app:tintColor="@{repo.languageColor}"
+
             app:layout_constraintBottom_toBottomOf="@id/iv_star"
             app:layout_constraintStart_toEndOf="@id/tv_star"
             app:layout_constraintTop_toTopOf="@id/iv_star" />

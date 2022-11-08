@@ -17,6 +17,7 @@ import com.eshc.feature.home.databinding.ActivityHomeBinding
 import com.eshc.feature.issue.ui.IssueFragment
 import com.eshc.feature.notification.ui.NotificationFragment
 import com.eshc.feature.profile.ProfileActivity
+import com.eshc.feature.repository.ui.RepositoryActivity
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.tabs.TabLayout
 import dagger.hilt.android.AndroidEntryPoint
@@ -130,7 +131,11 @@ class HomeActivity : AppCompatActivity() , TabLayout.OnTabSelectedListener{
     }
 
     private fun startSearchActivity(){
-
+        startActivity(
+            Intent(
+                this, RepositoryActivity::class.java
+            )
+        )
     }
 
     override fun onTabSelected(tab: TabLayout.Tab?) {

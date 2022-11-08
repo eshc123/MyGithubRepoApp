@@ -1,5 +1,6 @@
 package com.eshc.feature.repository.model
 
+import com.eshc.domain.model.Repo
 import com.eshc.domain.model.User
 
 data class RepoModel(
@@ -13,3 +14,17 @@ data class RepoModel(
     val starCnt : String,
     val languageColor : Int
 )
+
+fun Repo.toRepoModel() : RepoModel {
+    return RepoModel(
+        id = id,
+        name = name,
+        description = description,
+        owner = owner,
+        stargazersCount = stargazersCount,
+        language = language,
+        fullName = fullName,
+        starCnt = "",
+        languageColor = 0
+    )
+}

@@ -3,4 +3,6 @@
     <string name="login_button">Login</string>
 
     <string name="param_code">code</string>
+
+    <string name="login_error">로그인 과정에서 에러가 발생하였습니다. 로그인을 다시 해주세요.</string>
 </resources>

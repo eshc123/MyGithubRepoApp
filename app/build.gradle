@@ -35,6 +35,7 @@ android {
         dataBinding = true
         viewBinding = true
     }
+    namespace 'com.eshc.mygithubrepoapp'
 }
 
 dependencies {

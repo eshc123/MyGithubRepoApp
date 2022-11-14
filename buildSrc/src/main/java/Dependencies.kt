@@ -1,3 +1,4 @@
+
 object Versions {
     const val CORE_KTX = "1.8.0"
     const val APP_COMPAT = "1.5.1"
@@ -42,6 +43,7 @@ object AndroidX {
     const val PAGING                  = "androidx.paging:paging-runtime:${Versions.PAGING}"
     const val PAGING_RXJAVA           = "androidx.paging:paging-rxjava3:${Versions.PAGING}"
     const val PAGING_COMMON           = "androidx.paging:paging-common:${Versions.PAGING}"
+
 }
 
 object Google {

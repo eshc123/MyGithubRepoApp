@@ -43,13 +43,13 @@ object NetworkModule {
     fun provideAuthRetrofit(
         @InterceptorOkHttpClient okHttpClient: OkHttpClient,
         converter : Converter.Factory,
-        callAdapter: CallAdapter.Factory
+        callAdapter: CallAdapter.Factory // TODO Coroutine 전환 후 삭제
     ) : Retrofit {
         return Retrofit.Builder()
             .client(okHttpClient)
             .baseUrl("https://github.com")
             .addConverterFactory(converter)
-            .addCallAdapterFactory(callAdapter)
+            .addCallAdapterFactory(callAdapter) // TODO Coroutine 전환 후 삭제
             .build()
     }
 
@@ -59,13 +59,13 @@ object NetworkModule {
     fun provideGithubRetrofit(
         @TokenInterceptorOkHttpClient okHttpClient: OkHttpClient,
         converter : Converter.Factory,
-        callAdapter: CallAdapter.Factory
+        callAdapter: CallAdapter.Factory // TODO Coroutine 전환 후 삭제
     ) : Retrofit {
         return Retrofit.Builder()
             .client(okHttpClient)
             .baseUrl("https://api.github.com")
             .addConverterFactory(converter)
-            .addCallAdapterFactory(callAdapter)
+            .addCallAdapterFactory(callAdapter) // TODO Coroutine 전환 후 삭제
             .build()
     }
 
@@ -77,7 +77,7 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideCallAdapterFactory() : CallAdapter.Factory {
+    fun provideCallAdapterFactory() : CallAdapter.Factory { // TODO Coroutine 전환 후 삭제
         return RxJava3CallAdapterFactory.create()
     }
 

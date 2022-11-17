@@ -3,10 +3,10 @@ package com.eshc.feature.login
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.eshc.domain.usecase.auth.GetAccessTokenUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.schedulers.Schedulers
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -19,17 +19,16 @@ class LoginViewModel @Inject constructor(
         get() = _uiState
 
     fun getAccessToken(code : String) {
-        getAccessTokenUseCase(code)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe { result, error ->
-                if(result.isSuccess) {
-                    updateHasAccessToken(true)
-                } else {
-                    updateHasAccessToken(false)
-                    updateIsLoading(false)
-                    updateError() //TODO
-                }
+        viewModelScope.launch {
+            runCatching {
+                getAccessTokenUseCase(code)
+            }.onSuccess {
+                updateHasAccessToken(true)
+            }.onFailure {
+                updateHasAccessToken(false)
+                updateIsLoading(false)
+                updateError() //TODO
+            }
         }
     }
 

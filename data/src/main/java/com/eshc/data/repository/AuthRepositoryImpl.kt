@@ -8,19 +8,12 @@ import javax.inject.Inject
 class AuthRepositoryImpl @Inject constructor(
     private val authDataSource: AuthDataSource
 ) : AuthRepository {
-    override fun getAccessToken(code : String): Single<Result<String>> {
+    override suspend fun getAccessToken(code : String): Result<String> {
         return try {
-            authDataSource.getAccessToken(code)
-                .map {
-                    Result.success(it.getOrThrow())
-                }
-                .onErrorReturn {
-                    Result.failure(it)
-                }
+            Result.success(authDataSource.getAccessToken(code).getOrThrow())
+
         } catch (e : Exception) {
-            Single.just(
-                Result.failure(e)
-            )
+            Result.failure(e)
         }
     }
 }

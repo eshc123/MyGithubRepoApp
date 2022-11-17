@@ -13,20 +13,17 @@ class AuthDataSourceImpl @Inject constructor(
     private val authService: AuthService,
     private val authPreferences: AuthPreferences
 ) : AuthDataSource {
-    override fun getAccessToken(code : String): Single<Result<String>> {
+    override suspend fun getAccessToken(code : String): Result<String> {
 
-        return authService.getAccessToken(code = code)
-            .map {
-                val accessToken = it.body()?.accessToken
-                if(it.isSuccessful && accessToken != null) {
-                    authPreferences.accessToken = accessToken
-                    Result.success(it.body()?.accessToken ?: "")
-                } else {
-                    Result.failure(Throwable("Can't Get Access Token"))
-                }
+        val response = authService.getAccessToken(code = code)
+        return try {
+            if (response.isSuccessful){
+                Result.success(response.body()?.accessToken ?: "")
+            } else {
+                Result.failure(Throwable("Can't Get Access Token"))
             }
-            .onErrorReturn {
-                Result.failure(it)
-            }
+        } catch (e : Exception){
+            Result.failure(e)
+        }
     }
 }

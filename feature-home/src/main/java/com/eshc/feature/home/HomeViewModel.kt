@@ -1,12 +1,15 @@
 package com.eshc.feature.home
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.eshc.domain.usecase.user.GetUserProfileUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -35,12 +38,15 @@ class HomeViewModel @Inject constructor(
     }
 
     private fun getUser() {
-        getUserProfileUseCase()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe { result, error ->
-                updateUserImage(result.getOrThrow().avatarUrl)
+        viewModelScope.launch {
+            runCatching {
+                getUserProfileUseCase()
+            }.onSuccess {
+                updateUserImage(it.getOrNull()?.avatarUrl ?: "")
+            }.onFailure {
+                Log.e("LoginViewModel", "GetUser Error", it)
             }
+        }
     }
 
 }

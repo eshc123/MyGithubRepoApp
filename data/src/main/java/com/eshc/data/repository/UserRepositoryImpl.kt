@@ -1,6 +1,5 @@
 package com.eshc.data.repository
 
-import android.view.View
 import com.eshc.data.source.UserDataSource
 import com.eshc.domain.model.User
 import com.eshc.domain.repository.UserRepository
@@ -12,51 +11,33 @@ class UserRepositoryImpl @Inject constructor(
 ) : UserRepository {
     private var user: User? = null
 
-    override fun getUser(): Single<Result<User>> {
-        try {
-            return if (user == null)
-                userDataSource.getUser()
-                    .map {
-                        it.getOrThrow().run {
-                            user = this
-                            Result.success(this)
-                        }
-                    }
-                    .onErrorReturn {
-                        Result.failure(it)
-                    }
-            else Single.just (
+    override suspend fun getUser(): Result<User> {
+        return try {
+            if (user == null){
+                userDataSource.getUser().getOrThrow().run {
+                    user = this
+                    Result.success(this)
+                }
+            } else {
                 Result.success(user ?: User())
-            )
-        } catch (e: Exception) {
-            return Single.create {
-                Result.failure<String>(e)
             }
+        } catch (e : Exception){
+            Result.failure(e)
         }
     }
 
-    override fun getStarred(): Single<Result<Int>> {
+    override suspend fun getStarred(): Result<Int> {
         try {
-            return if(user?.starred == null) {
-                userDataSource.getUserStarred()
-                    .map {
-                        it.getOrThrow().run {
-                            user = user?.copy(
-                                starred = this
-                            )
-                            Result.success(this)
-                        }
-                    }
-                    .onErrorReturn {
-                        Result.failure(it)
-                    }
-            } else Single.just(
-                Result.success(user?.starred ?: 0)
-            )
+            return if (user?.starred == null) {
+                userDataSource.getUserStarred().getOrThrow().run {
+                    user = user?.copy(
+                        starred = this
+                    )
+                    Result.success(this)
+                }
+            } else Result.success(user?.starred ?: 0)
         } catch (e: Exception) {
-            return Single.create {
-                Result.failure<String>(e)
-            }
+            return Result.failure(e)
         }
     }
 }

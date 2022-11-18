@@ -12,7 +12,7 @@ import retrofit2.http.Query
 interface GithubService {
 
     @GET("/user")
-    fun getUserData(): Single<Response<UserEntity>>
+    suspend fun getUserData(): Response<UserEntity>
 
     @GET("/notifications")
     fun getNotifications(
@@ -21,7 +21,7 @@ interface GithubService {
     ): Single<Response<List<NotificationEntity>>>
 
     @GET("/user/starred")
-    fun getStarredRepos(): Single<Response<List<StarredEntity>>>
+    suspend fun getStarredRepos(): Response<List<StarredEntity>>
 
     @PATCH("/notifications/threads/{thread_id}")
     fun patchNotificationThread(

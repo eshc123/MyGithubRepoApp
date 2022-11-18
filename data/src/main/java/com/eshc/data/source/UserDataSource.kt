@@ -4,7 +4,7 @@ import com.eshc.domain.model.User
 import io.reactivex.rxjava3.core.Single
 
 interface UserDataSource {
-    fun getUser() : Single<Result<User>>
+    suspend fun getUser() : Result<User>
 
-    fun getUserStarred() : Single<Result<Int>>
+    suspend fun getUserStarred() : Result<Int>
 }

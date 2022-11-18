@@ -6,5 +6,5 @@ import io.reactivex.rxjava3.core.Single
 interface UserDataSource {
     suspend fun getUser() : Result<User>
 
-    fun getUserStarred() : Single<Result<Int>>
+    suspend fun getUserStarred() : Result<Int>
 }

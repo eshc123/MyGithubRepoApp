@@ -21,7 +21,7 @@ interface GithubService {
     ): Single<Response<List<NotificationEntity>>>
 
     @GET("/user/starred")
-    fun getStarredRepos(): Single<Response<List<StarredEntity>>>
+    suspend fun getStarredRepos(): Response<List<StarredEntity>>
 
     @PATCH("/notifications/threads/{thread_id}")
     fun patchNotificationThread(

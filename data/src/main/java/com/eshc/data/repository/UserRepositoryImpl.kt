@@ -26,28 +26,18 @@ class UserRepositoryImpl @Inject constructor(
         }
     }
 
-    override fun getStarred(): Single<Result<Int>> {
+    override suspend fun getStarred(): Result<Int> {
         try {
-            return if(user?.starred == null) {
-                userDataSource.getUserStarred()
-                    .map {
-                        it.getOrThrow().run {
-                            user = user?.copy(
-                                starred = this
-                            )
-                            Result.success(this)
-                        }
-                    }
-                    .onErrorReturn {
-                        Result.failure(it)
-                    }
-            } else Single.just(
-                Result.success(user?.starred ?: 0)
-            )
+            return if (user?.starred == null) {
+                userDataSource.getUserStarred().getOrThrow().run {
+                    user = user?.copy(
+                        starred = this
+                    )
+                    Result.success(this)
+                }
+            } else Result.success(user?.starred ?: 0)
         } catch (e: Exception) {
-            return Single.create {
-                Result.failure<String>(e)
-            }
+            return Result.failure(e)
         }
     }
 }

@@ -23,13 +23,16 @@ class UserDataSourceImpl @Inject constructor(
         }
     }
 
-    override fun getUserStarred(): Single<Result<Int>> {
-        return githubService.getStarredRepos()
-            .map {
-                Result.success(it.body()?.size ?: 0)
+    override suspend fun getUserStarred(): Result<Int> {
+        try {
+            val response = githubService.getStarredRepos()
+            if(response.isSuccessful){
+                return Result.success(response.body()?.size ?: 0)
+            } else {
+                return Result.failure(Throwable("Can't get starred repos"))
             }
-            .onErrorReturn {
-                Result.failure(it)
-            }
+        } catch (e: Exception){
+            return Result.failure(e)
+        }
     }
 }

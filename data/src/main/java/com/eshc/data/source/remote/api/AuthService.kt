@@ -14,9 +14,9 @@ interface AuthService {
     @FormUrlEncoded
     @POST("/login/oauth/access_token")
     @Headers("Accept: application/json")
-    fun getAccessToken(
+    suspend fun getAccessToken(
         @Field("client_id") clientId: String = BuildConfig.githubClientId,
         @Field("client_secret") clientSecret: String = BuildConfig.githubClientSecret,
         @Field("code") code: String
-    ) : Single<Response<AccessTokenEntity>>
+    ) : Response<AccessTokenEntity>
 }

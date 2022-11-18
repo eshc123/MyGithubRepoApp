@@ -4,5 +4,5 @@ import io.reactivex.rxjava3.core.Single
 
 interface AuthDataSource {
 
-    fun getAccessToken(code : String) : Single<Result<String>>
+    suspend fun getAccessToken(code : String) : Result<String>
 }

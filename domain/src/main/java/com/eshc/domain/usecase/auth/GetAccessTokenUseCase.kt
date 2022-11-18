@@ -7,19 +7,12 @@ import javax.inject.Inject
 class GetAccessTokenUseCase @Inject constructor(
     private val authRepository: AuthRepository
 ) {
-    operator fun invoke(code : String) : Single<Result<String>> {
-       return try {
-           authRepository.getAccessToken(code)
-               .map {
-                   Result.success(it.getOrThrow())
-               }
-               .onErrorReturn {
-                   Result.failure(it)
-               }
-       } catch (e: Exception){
-           Single.create {
-               Result.failure<String>(e)
-           }
-       }
+    suspend operator fun invoke(code : String) : Result<String> {
+        return try {
+            Result.success(authRepository.getAccessToken(code).getOrThrow())
+
+        } catch (e : Exception) {
+            Result.failure(e)
+        }
     }
 }

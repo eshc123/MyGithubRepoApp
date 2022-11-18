@@ -1,6 +1,5 @@
 package com.eshc.data.repository
 
-import android.view.View
 import com.eshc.data.source.UserDataSource
 import com.eshc.domain.model.User
 import com.eshc.domain.repository.UserRepository
@@ -12,26 +11,18 @@ class UserRepositoryImpl @Inject constructor(
 ) : UserRepository {
     private var user: User? = null
 
-    override fun getUser(): Single<Result<User>> {
-        try {
-            return if (user == null)
-                userDataSource.getUser()
-                    .map {
-                        it.getOrThrow().run {
-                            user = this
-                            Result.success(this)
-                        }
-                    }
-                    .onErrorReturn {
-                        Result.failure(it)
-                    }
-            else Single.just (
+    override suspend fun getUser(): Result<User> {
+        return try {
+            if (user == null){
+                userDataSource.getUser().getOrThrow().run {
+                    user = this
+                    Result.success(this)
+                }
+            } else {
                 Result.success(user ?: User())
-            )
-        } catch (e: Exception) {
-            return Single.create {
-                Result.failure<String>(e)
             }
+        } catch (e : Exception){
+            Result.failure(e)
         }
     }
 

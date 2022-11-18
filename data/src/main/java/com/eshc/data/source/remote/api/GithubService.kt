@@ -12,7 +12,7 @@ import retrofit2.http.Query
 interface GithubService {
 
     @GET("/user")
-    fun getUserData(): Single<Response<UserEntity>>
+    suspend fun getUserData(): Response<UserEntity>
 
     @GET("/notifications")
     fun getNotifications(

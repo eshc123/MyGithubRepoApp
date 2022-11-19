@@ -29,13 +29,13 @@ interface GithubService {
     ): Single<Response<Unit>>
 
     @GET("/issues")
-    fun getIssues(
+    suspend fun getIssues(
         @Query("filter") filter: String = "all",
         @Query("state") state: String,
         @Query("per_page") perPage: Int = 10, //default = 30
         @Query("page") page: Int,
         @Query("sort") sort: String = "updated" //default = "created"
-    ): Single<Response<List<IssueEntity>>>
+    ): Response<List<IssueEntity>>
 
     @GET("/search/repositories")
     fun getRepositories(

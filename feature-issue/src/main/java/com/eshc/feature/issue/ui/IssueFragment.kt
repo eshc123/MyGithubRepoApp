@@ -6,6 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.eshc.core.ui.view.FilterSpinner
@@ -14,6 +17,10 @@ import com.eshc.feature.issue.databinding.FragmentIssueBinding
 import com.eshc.feature.issue.ui.adapter.FilterSpinnerAdapter
 import com.eshc.feature.issue.ui.adapter.IssueAdapter
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class IssueFragment : Fragment() {
@@ -22,11 +29,11 @@ class IssueFragment : Fragment() {
 
     private val viewModel: IssueViewModel by viewModels()
 
-    private val issueAdapter : IssueAdapter by lazy {
+    private val issueAdapter: IssueAdapter by lazy {
         IssueAdapter()
     }
 
-    private val filterSpinnerAdapter : FilterSpinnerAdapter by lazy {
+    private val filterSpinnerAdapter: FilterSpinnerAdapter by lazy {
         FilterSpinnerAdapter(
             context = requireContext(),
             items = IssueState.values().toList()
@@ -64,13 +71,12 @@ class IssueFragment : Fragment() {
     }
 
     private fun initObserver() {
-        viewModel.issues.observe(viewLifecycleOwner){
-            issueAdapter.submitData(lifecycle,it)
-        }
-
-        viewModel.issueState.observe(viewLifecycleOwner) {
-            filterSpinnerAdapter.selectItem(it)
-            viewModel.getIssues(it)
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.issues.collectLatest {
+                    issueAdapter.submitData(it)
+                }
+            }
         }
     }
 
@@ -80,6 +86,7 @@ class IssueFragment : Fragment() {
             onItemSelected = {
                 IssueState.values()[it].also { state ->
                     viewModel.setIssueState(state)
+                    filterSpinnerAdapter.selectItem(state)
                 }
             }
         )

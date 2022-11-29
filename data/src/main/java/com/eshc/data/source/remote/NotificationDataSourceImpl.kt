@@ -12,12 +12,13 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Flowable
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class NotificationDataSourceImpl @Inject constructor(
     private val githubService: GithubService
 ) : NotificationDataSource{
-    override fun getNotifications(): Flowable<PagingData<Notification>> {
+    override fun getNotifications(): Flow<PagingData<Notification>> {
         return Pager(
             config = PagingConfig(
                 pageSize = 10
@@ -25,7 +26,7 @@ class NotificationDataSourceImpl @Inject constructor(
             pagingSourceFactory = {
                 NotificationPagingSource(githubService = githubService)
             }
-        ).flowable
+        ).flow
     }
 
     override fun updateNotificationAsRead(id : String)  {

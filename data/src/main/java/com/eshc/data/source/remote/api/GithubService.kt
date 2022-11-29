@@ -15,10 +15,10 @@ interface GithubService {
     suspend fun getUserData(): Response<UserEntity>
 
     @GET("/notifications")
-    fun getNotifications(
+    suspend fun getNotifications(
         @Query("per_page") perPage: Int = 10, // default = 30
         @Query("page") page: Int
-    ): Single<Response<List<NotificationEntity>>>
+    ): Response<List<NotificationEntity>>
 
     @GET("/user/starred")
     suspend fun getStarredRepos(): Response<List<StarredEntity>>

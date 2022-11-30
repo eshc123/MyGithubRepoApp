@@ -71,17 +71,24 @@ class NotificationFragment : Fragment() {
                 viewModel.notifications.collectLatest {
                     notificationAdapter.submitData(it)
                 }
+
+                viewModel.hasRemoved.collectLatest {
+                    if(it){
+                        viewModel.hasRemoved.value = false
+                        notificationAdapter.refresh()
+                    }
+                }
             }
         }
     }
 
     private fun removeNotification(notification: NotificationModel) {
-        //viewModel.removeNotification(notification)
+        viewModel.removeNotification(notification)
     }
 
     override fun onStop() {
         if(viewModel.isEmptyNotificationsToBeRemoved.not()) {
-            //viewModel.removeAllNotifications()
+            viewModel.removeAllNotifications()
             binding?.notificationRecyclerView?.smoothScrollToPosition(0)
         }
         super.onStop()

@@ -7,6 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -14,6 +17,8 @@ import com.eshc.feature.notification.databinding.FragmentNotificationBinding
 import com.eshc.feature.notification.model.NotificationModel
 import com.eshc.feature.notification.ui.adapter.NotificationAdapter
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class NotificationFragment : Fragment() {
@@ -47,7 +52,6 @@ class NotificationFragment : Fragment() {
             initRecyclerView(it.notificationRecyclerView)
         }
 
-        viewModel.getNotifications()
 
         initObserver()
     }
@@ -62,8 +66,19 @@ class NotificationFragment : Fragment() {
     }
 
     private fun initObserver() {
-        viewModel.notifications.observe(viewLifecycleOwner) {
-            notificationAdapter.submitData(lifecycle,it)
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.notifications.collectLatest {
+                    notificationAdapter.submitData(it)
+                }
+
+                viewModel.hasRemoved.collectLatest {
+                    if(it){
+                        viewModel.hasRemoved.value = false
+                        notificationAdapter.refresh()
+                    }
+                }
+            }
         }
     }
 

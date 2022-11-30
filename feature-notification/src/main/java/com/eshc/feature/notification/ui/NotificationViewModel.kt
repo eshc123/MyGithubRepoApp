@@ -1,23 +1,20 @@
 package com.eshc.feature.notification.ui
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import androidx.paging.filter
 import androidx.paging.map
-import androidx.paging.rxjava3.cachedIn
 import com.eshc.domain.usecase.notification.GetNotificationsUseCase
 import com.eshc.domain.usecase.notification.UpdateNotificationsAsReadUseCase
 import com.eshc.feature.notification.model.NotificationModel
 import com.eshc.feature.notification.model.toNotificationModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.disposables.CompositeDisposable
-import io.reactivex.rxjava3.disposables.Disposable
-import io.reactivex.rxjava3.schedulers.Schedulers
-import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -25,57 +22,47 @@ class NotificationViewModel @Inject constructor(
     private val getNotificationsUseCase: GetNotificationsUseCase,
     private val updateNotificationsAsReadUseCase: UpdateNotificationsAsReadUseCase
 ) : ViewModel() {
-    private val compositeDisposable = CompositeDisposable()
 
-    private val _notifications = MutableLiveData<PagingData<NotificationModel>>()
-    val notifications: LiveData<PagingData<NotificationModel>> get() = _notifications
+    private val _notificationsToBeRemoved = MutableStateFlow<List<NotificationModel>>(
+        mutableListOf()
+    )
+    val notificationsToBeRemoved: StateFlow<List<NotificationModel>> get() = _notificationsToBeRemoved
+    val isEmptyNotificationsToBeRemoved: Boolean
+        get() = notificationsToBeRemoved.value.isEmpty()
 
-    private val notificationsToBeRemoved : MutableList<NotificationModel> = mutableListOf()
-    val isEmptyNotificationsToBeRemoved : Boolean
-        get() = notificationsToBeRemoved.isEmpty()
-
-    private fun addDisposable(disposable: Disposable) {
-        compositeDisposable.add(disposable)
-    }
-
-    @OptIn(ExperimentalCoroutinesApi::class)
-    fun getNotifications() {
-        addDisposable(
+    val notifications =
+        notificationsToBeRemoved.flatMapLatest { removeList ->
             getNotificationsUseCase()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
                 .map {
-                        it.map { notification ->
-                        notification.toNotificationModel()
+                    it.map {
+                        it.toNotificationModel()
+                    }
+                    .filter {
+                        removeList.map {
+                            it.id
+                        }.contains(it.id).not()
                     }
                 }.cachedIn(viewModelScope)
-                .subscribe {
-                    _notifications.value = it
-                }
-        )
-    }
+        }
+
+    val hasRemoved = MutableStateFlow<Boolean>(false)
 
     fun removeNotification(notification: NotificationModel) {
-        _notifications.value = _notifications.value?.filter {
-            it.id != notification.id
-        }
-        notificationsToBeRemoved.add(notification)
+        _notificationsToBeRemoved.value = notificationsToBeRemoved.value + notification
     }
 
     fun removeAllNotifications() {
         if(isEmptyNotificationsToBeRemoved.not()) {
-            updateNotificationsAsReadUseCase(
-                notificationsToBeRemoved.map {
-                    it.id
-                }
-            )
-            notificationsToBeRemoved.clear()
-            getNotifications()
+            viewModelScope.launch {
+                updateNotificationsAsReadUseCase(
+                    notificationsToBeRemoved.value.map {
+                        it.id
+                    }
+                )
+                _notificationsToBeRemoved.value = listOf()
+                hasRemoved.value = true
+            }
         }
     }
 
-    override fun onCleared() {
-        compositeDisposable.clear()
-        super.onCleared()
-    }
 }

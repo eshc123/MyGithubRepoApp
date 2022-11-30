@@ -9,5 +9,5 @@ import kotlinx.coroutines.flow.Flow
 interface NotificationDataSource {
     fun getNotifications(): Flow<PagingData<Notification>>
 
-    fun updateNotificationAsRead(id : String)
+    suspend fun updateNotificationAsRead(id : String)
 }

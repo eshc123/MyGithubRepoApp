@@ -29,11 +29,7 @@ class NotificationDataSourceImpl @Inject constructor(
         ).flow
     }
 
-    override fun updateNotificationAsRead(id : String)  {
+    override suspend fun updateNotificationAsRead(id : String)  {
         githubService.patchNotificationThread(id)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe { _ -> //TODO
-            }
     }
 }

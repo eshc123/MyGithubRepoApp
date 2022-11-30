@@ -15,7 +15,7 @@ class NotificationRepositoryImpl @Inject constructor(
         return notificationDataSource.getNotifications()
     }
 
-    override fun updateNotificationAsRead(id : String) {
+    override suspend fun updateNotificationAsRead(id : String) {
         notificationDataSource.updateNotificationAsRead(id)
     }
 }

@@ -6,7 +6,7 @@ import javax.inject.Inject
 class UpdateNotificationsAsReadUseCase @Inject constructor(
     private val notificationRepository: NotificationRepository
 )  {
-    operator fun invoke(ids: List<String>) {
+    suspend operator fun invoke(ids: List<String>) {
         ids.forEach {
             notificationRepository.updateNotificationAsRead(it)
         }
